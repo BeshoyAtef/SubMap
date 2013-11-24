@@ -24,5 +24,18 @@ class UserProfile(models.model):
      )
     gender = models.CharField(max_length=1, choices=gender_choices , null=True)
 
+
 class UserBlocks(models.Model):
-	number = models.CharField(max_length = 1)
+    number = models.CharField(max_length = 1)
+    uBlocks = models.ManyToManyField(UserProfile)
+
+class Trial(models.Model):
+    task_text = models.CharField(max_length = 400)
+    pointA = models.CharField(max_length = 30)
+    pointB = models.CharField(max_length = 30, null = True, blank = True)
+    expectedAnswer = models.CharField(max_length = 30)
+    blockId = models.IntegerField(default = 0)
+    order = models.IntegerField(default=0) 
+
+    class Meta:
+        unique_together = ("id","blockId")
