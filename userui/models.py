@@ -24,10 +24,18 @@ class UserProfile(models.Model):
      )
     gender = models.CharField(max_length=1, choices=gender_choices , null=True)
 
+    def __unicode__(self):
+        return "User ID :%s" % (self.id)
+
+
 
 class UserBlocks(models.Model):
     number = models.CharField(max_length = 1)
     uBlocks = models.ManyToManyField(UserProfile)
+
+    def __unicode__(self):
+        return "UserBlocks_id:%s ,uBlocks:%s,Number:%s" % (self.id , self.uBlocks, self.number)
+
 
 class Trial(models.Model):
     trialNumber = models.IntegerField(default = 0)
@@ -37,6 +45,9 @@ class Trial(models.Model):
     expectedAnswer = models.CharField(max_length = 30)
     blockId = models.IntegerField(default = 0)
     order = models.IntegerField(default=0) 
+
+    def __unicode__(self):
+        return "Traial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
 
     class Meta:
         unique_together = ("trialNumber","blockId")
