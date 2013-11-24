@@ -82,21 +82,21 @@
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
   <script>
     $("#zoom_01").elevateZoom({
+            zoomWindowPosition: "demo-container", 
             zoomWindowWidth:300,
             zoomWindowHeight:200,
             scrollZoom : true,
-            zoomWindowOffety:250,
             
 }); 
      $("#zoom_02").elevateZoom({
-            zoomWindowWidth:300,
-            zoomWindowHeight:200,
-            scrollZoom : true,
-            zoomWindowOffety:250,
-            zoomWindowPosition:11,
-            
+      zoomWindowPosition: "demo-container", 
+      zoomWindowHeight:200, 
+      zoomWindowWidth:300, 
+      scrollZoom : true,
 });    
+
 </script>
+
 
 </body>
 </html>
