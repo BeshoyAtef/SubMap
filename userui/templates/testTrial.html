@@ -2,9 +2,25 @@
 {% load staticfiles %}
 
 {% block content%}
-  <div>
+  <!-- <div>
     <div> </div>
     <div style="float:left; width:500px; backgroud: RED"> </div>
     <div> </div>  
+  </div> -->
+  <style type="text/css">
+   .col-md-6{
+  	background-color: red
+  	}
+  	.col-md-2{
+  		background-color: gray
+  		}</style>
+  <div class="row">
+	  <div class="col-md-6">.col-md-1</div>
+	  <div class="col-md-6" style="background-color: black">.col-md-1</div>
   </div>
+	<div class="row">
+	  <div class="col-md-3" style="background-color: blue">.col-md-1</div>
+	  <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
+	  <div class="col-md-2" >.col-md-1</div>
+	</div>
 {% endblock %}
