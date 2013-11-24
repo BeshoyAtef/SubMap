@@ -40,3 +40,13 @@ class Trial(models.Model):
 
     class Meta:
         unique_together = ("trialNumber","blockId")
+
+class Results (models.Model):
+    uID = models.ForeignKey('UserProfile')
+    blockID = models.IntegerField(default = 0)
+    trialID = models.IntegerField(default = 0)
+    userAnswer = models.CharField(max_length = 30)
+
+    class Meta:
+        unique_together = ("uID","blockID","trialID")
+
