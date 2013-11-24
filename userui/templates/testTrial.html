@@ -13,12 +13,16 @@
   		background-color: gray
   		}</style>
   <div class="row">
-	  <div class="col-md-6">
-	  	<img src='{% static "img/manMetroMap.png" %}' style="width:100%">
-	  </div>
-	  <div class="col-md-6">
-	  	<img src='{% static "img/ManMap.png" %}' style="width:100%">
-	  </div>
+	  <a class="col-md-6">
+  	  	<div class="">
+  		  	<img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
+  	  	</div>
+	  </a>
+	  <div class="col-md-6 ">
+	  	<a class="">
+		  	<img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
+	  	</div>
+	  </a>
   </div>
 
 	<div class="panel panel-default">
@@ -33,4 +37,10 @@
   
               </div>
             </div>
+
+
+
+
+
+
 {% endblock %}
