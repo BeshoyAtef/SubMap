@@ -4,5 +4,32 @@
 </head>
 <body>
 <h1>I am a Freakin DUmmy Index</h1>
+				{%if trials %}
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Trial Num</th>
+                  <th>Trial txt</th>
+                  <th>point A</th>
+                  <th>point B</th>
+                  <th>blockId</th>
+                  <th>order</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {%for trail in trials%}
+                <tr>
+                  <td>{{trail.id}}</td>
+                  <td>{{trail.trialNumber}}</td>
+                  <td>{{trail.pointA}}</td>
+                  <td>{{trail.pointB}}</td>
+                  <td>{{trail.blockId}}</td>
+                  <td>{{trail.order}}</td>
+                </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+            {% endif %}
 </body>
 </html>
