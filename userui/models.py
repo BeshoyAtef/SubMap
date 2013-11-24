@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
@@ -13,7 +12,7 @@ from datetime import timedelta
 #there is also a field called REQIURED fields which is a list of all the fields except the USER_field that are requied for creating the user 
 #3.the class should have 2 methods get_full_name and get_short_name which doesnt take paramters and returns an identifyer of the user in my case its email but it can be username , and both can be the same 
 #for this class a custom manager is made beause i have different attributes than the USer model built in . this manager is called from the class .
-class UserProfile(AbstractBaseUser):
+class UserProfile(models.model):
     date_Of_birth = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=20 , null=True)
     is_admin = models.BooleanField(default=False)           
