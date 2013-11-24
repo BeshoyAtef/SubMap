@@ -1,8 +1,24 @@
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<h1>I am a Freakin DUmmy Index</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content%}
+   <div> 
+    <h1 class = "text-muted" style = "text-align: center;"> Greetings participant 1 <h1>
+    </div>
+  <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">instructions</h3>
+              </div>
+              <div class="panel-body">
+                <ul>
+                    <li>hi my name is mahmoud</li>
+                    <li>hi my name is mahmoud</li>
+                    <li>hi my name is mahmoud</li>
+                    <li>hi my name is mahmoud</li>
+                </ul>
+              </div>
+            </div>
+
+    <button type="submit" style="margin-left: 520px;" class="btn btn-success"> start </button>
+    
+{% endblock %}

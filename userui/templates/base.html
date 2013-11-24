@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>{{title}}</title>
+  
+{% load staticfiles %}
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="{% static "js/bootstrap.js" %}" ></script>
+        <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
+       
+    {% block headers %}
+
+    {% endblock %} 
+
+</head>
+
+
+
+
+<body>
+<div class="navbar navbar-default">
+                <div class="navbar-header">
+                </div>
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                  <h3 class = "text-muted" style="text-align: center">Map experiment</h3>
+                </div><!-- /.nav-collapse -->
+              </div>
+<!-- Start main websiteBody Div -->
+ <div class="container" style="padding-top: 10px;">
+<!-- Start TMP , Please remove me -->
+
+
+
+
+
+{% block content %}
+
+  {% block script %}
+  
+  {% endblock %}
+<!-- USe this to add your stuff   -->
+{% endblock %}
+
+<script type="text/javascript">
+    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    if(!options.crossDomain) {
+      if(options.data) {
+        options.data += "&";
+      } else {
+        options.data = "";
+      }
+      options.data += "csrfmiddlewaretoken={{csrf_token}}";
+    }
+    });
+</script>
+<!-- End TMP , Please remove me -->
+      <hr>
+
+ <footer>
+        <p>&copy; Beshoy & Mahmoud 2013</p>
+      </footer>
+</div>
+<!-- end main websiteBody Div -->
+
+
+
+</body>
+</html>
