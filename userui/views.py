@@ -10,18 +10,26 @@ from django.template import RequestContext
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+	trails = Trail.obejcts.filter(block=block).order_by('order')
+    return render(request, 'index.html',{trails:"trails"})
 
 def submitter(request,block,trial,user):
 	user = UserProfile.objects.get(pk=user)
-	userblock = Block.objects.get(pk=block)
-	trial = Trail.objects.get(pk=trial)
-	result=save(request,user,userblock,trail)
-	trails = Trail.obejcts.filter(block=block).order_by('order')
+	trial = Trail.objects.get(pk=trial,blockId=block)
+	result=saver(request,trail)
+	trails = (Trail.obejcts.filter(block=block).values_list('trailsNumber', flat=True))
+
+	answered_trials = (Result.objects.filter(user=user,blockNumber=block,).values_list('trailsNumber', flat=True))
+	available_trails = (Trail.objects.filter(block=block).exclude('id__in' = answered_trials)
+	print available_trails
+
 
 	return render(request, 'index.html')
 
-def save(request,user,userblock,trail):
+
+
+
+def saver(request,trail):
 	answer = request.POST['answer']
 	result = Result(user=user,userblock=userblock,trial=trial,answer=answer)
 	result.save()
