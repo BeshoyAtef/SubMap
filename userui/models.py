@@ -30,6 +30,7 @@ class UserBlocks(models.Model):
     uBlocks = models.ManyToManyField(UserProfile)
 
 class Trial(models.Model):
+    trialNumber = models.IntegerField(default = 0)
     task_text = models.CharField(max_length = 400)
     pointA = models.CharField(max_length = 30)
     pointB = models.CharField(max_length = 30, null = True, blank = True)
@@ -38,4 +39,4 @@ class Trial(models.Model):
     order = models.IntegerField(default=0) 
 
     class Meta:
-        unique_together = ("id","blockId")
+        unique_together = ("trialNumber","blockId")
