@@ -8,6 +8,8 @@ from django.template import RequestContext
 
 
 # Create your views here.
+def test(request):
+    return render(request,'testTrial.html')
 
 def index(request):
     available_trails = Trial.objects.all().order_by('order')
