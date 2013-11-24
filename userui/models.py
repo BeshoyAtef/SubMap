@@ -38,6 +38,7 @@ class UserBlocks(models.Model):
 
 
 class Trial(models.Model):
+    trialNumber = models.IntegerField(default = 0)
     task_text = models.CharField(max_length = 400)
     pointA = models.CharField(max_length = 30)
     pointB = models.CharField(max_length = 30, null = True, blank = True)
@@ -46,7 +47,17 @@ class Trial(models.Model):
     order = models.IntegerField(default=0) 
 
     def __unicode__(self):
-        return "Traial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
+        return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
 
     class Meta:
-        unique_together = ("id","blockId")
+        unique_together = ("trialNumber","blockId")
+
+class Results (models.Model):
+    uID = models.ForeignKey('UserProfile')
+    blockID = models.IntegerField(default = 0)
+    trialID = models.IntegerField(default = 0)
+    userAnswer = models.CharField(max_length = 30)
+
+    class Meta:
+        unique_together = ("uID","blockID","trialID")
+
