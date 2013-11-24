@@ -10,28 +10,25 @@ from django.template import RequestContext
 # Create your views here.
 
 def index(request):
-	trails = Trail.obejcts.filter(block=block).order_by('order')
-    return render(request, 'index.html',{trails:"trails"})
+    available_trails = Trial.objects.all().orderby('order')
+    return render(request,'index.html',{'trials': available_trails})
+
 
 def submitter(request,block,trial,user):
-	user = UserProfile.objects.get(pk=user)
-	trial = Trail.objects.get(pk=trial,blockId=block)
-	result=saver(request,trail)
-	trails = (Trail.obejcts.filter(block=block).values_list('trailsNumber', flat=True))
-
-	answered_trials = (Result.objects.filter(user=user,blockNumber=block,).values_list('trailsNumber', flat=True))
-	available_trails = (Trail.objects.filter(block=block).exclude('id__in' = answered_trials)
-	print available_trails
-
-
-	return render(request, 'index.html')
-
+    user = UserProfile.objects.get(pk=user)
+    
+    answered_trials = (Results.objects.filter(uID=user,blockID=1).values_list('trialID', flat=True))
+    if answered_trials :
+        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber=answered_trials).orderby('order')
+    else:
+        available_trails = Trial.objects.filter(blockId=1).orderby('order')
+    return render(request,'index.html',{'trials': available_trails})
 
 
 
 def saver(request,trail):
-	answer = request.POST['answer']
-	result = Result(user=user,userblock=userblock,trial=trial,answer=answer)
-	result.save()
-	return result
+    answer = request.POST['answer']
+    result = Result(user=user,userblock=userblock,trial=trial,answer=answer)
+    result.save()
+    return result
 
