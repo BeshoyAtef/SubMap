@@ -5,8 +5,9 @@
 {% load staticfiles %}
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="{% static "js/bootstrap.js" %}" ></script>
         <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
+
+
        
     {% block headers %}
 
@@ -18,15 +19,28 @@
 
 
 <body>
-<div class="navbar navbar-default">
+<div class="navbar navbar-default" style="margin-bottom:5px">
                 <div class="navbar-header">
+                  <a class="navbar-brand" href="/">Map experiment</a>
                 </div>
-                <div class="navbar-collapse collapse navbar-responsive-collapse">
-                  <h3 class = "text-muted" style="text-align: center">Map experiment</h3>
-                </div><!-- /.nav-collapse -->
-              </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                  
+
+                  <form class="navbar-form navbar-left" role="search">
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" role="button" data-original-title="A Title">Instructions</a>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Answer">
+                    </div>
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                  </form>
+                  <li><a href="#">Undo</a></li>
+
+                </ul>
+
+ </div>
 <!-- Start main websiteBody Div -->
- <div class="container" style="padding-top: 10px;">
+ <div class="container" >
 <!-- Start TMP , Please remove me -->
 
 
@@ -41,18 +55,7 @@
 <!-- USe this to add your stuff   -->
 {% endblock %}
 
-<script type="text/javascript">
-    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-    if(!options.crossDomain) {
-      if(options.data) {
-        options.data += "&";
-      } else {
-        options.data = "";
-      }
-      options.data += "csrfmiddlewaretoken={{csrf_token}}";
-    }
-    });
-</script>
+        
 <!-- End TMP , Please remove me -->
       <hr>
 
@@ -61,8 +64,39 @@
       </footer>
 </div>
 <!-- end main websiteBody Div -->
+<script language="javascript" type="text/javascript" src='{% static "js/jquery-v1.7.2.js" %}'></script>
+<script language="javascript" type="text/javascript" src='{% static "js/jquery-ui-1.8.12.custom.min.js" %}'></script>
+<script src="{% static "js/bootstrap.js" %}" language="javascript" type="text/javascript"></script>
+
+<script language="javascript" type="text/javascript">
+  // use load event on window to start the script
+  jQuery(window).load(function(){   
+    // example 1
 
 
+    $('#example').popover('toggle')
+    
+  });
+  
+</script>
+<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+  <script>
+    $("#zoom_01").elevateZoom({
+            zoomWindowWidth:300,
+            zoomWindowHeight:200,
+            scrollZoom : true,
+            zoomWindowOffety:250,
+            
+}); 
+     $("#zoom_02").elevateZoom({
+            zoomWindowWidth:300,
+            zoomWindowHeight:200,
+            scrollZoom : true,
+            zoomWindowOffety:250,
+            zoomWindowPosition:11,
+            
+});    
+</script>
 
 </body>
 </html>
