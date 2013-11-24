@@ -10,7 +10,7 @@ from django.template import RequestContext
 # Create your views here.
 
 def index(request):
-    available_trails = Trial.objects.all().orderby('order')
+    available_trails = Trial.objects.all().order_by('order')
     return render(request,'index.html',{'trials': available_trails})
 
 
@@ -19,9 +19,9 @@ def submitter(request,block,trial,user):
     
     answered_trials = (Results.objects.filter(uID=user,blockID=1).values_list('trialID', flat=True))
     if answered_trials :
-        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber=answered_trials).orderby('order')
+        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber=answered_trials).order_by('order')
     else:
-        available_trails = Trial.objects.filter(blockId=1).orderby('order')
+        available_trails = Trial.objects.filter(blockId=1).order_by('order')
     return render(request,'index.html',{'trials': available_trails})
 
 
