@@ -11,6 +11,9 @@ from django.template import RequestContext
 def test(request):
     return render(request,'testTrial.html')
 
+def test2(request):
+    return render(request,'testTrial2.html')
+
 def index(request):
     available_trails = Trial.objects.all().order_by('order')
     return render(request,'index.html',{'trials': available_trails})

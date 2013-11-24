@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content%}
+  <!-- <div>
+    <div> </div>
+    <div style="float:left; width:500px; backgroud: RED"> </div>
+    <div> </div>  
+  </div> -->
+  <style type="text/css">
+
+  	.col-md-2{
+  		background-color: gray
+  		}</style>
+
+  <div class="row" >
+
+        <div class="btn-group-vertical col-md-2" style="background-color: white">
+          <button type="button" class="btn btn-default" onClick="mapChange('2');">City Map</button>
+          <button type="button" class="btn btn-default" onClick="mapChange('1');">Subway Map</button>
+        </div>
+
+  <div class="mapping">
+            <div id="2" class="col-md-6 maps col-md-offset-1">
+            <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
+        </div>
+
+       
+
+  </div>
+    <br>
+	  <div class="">
+
+    </div>
+  </div>
+  <div style="
+position: fixed;
+left: 0;
+bottom: 0;
+height: 200px;
+width: 300px;
+
+opacity: 0.4;" id="demo-container">
+<div style="opacity:1;color: black;">
+</div>
+</div>
+  <div style="
+position: fixed;
+left: 0;
+bottom: 0;
+height: 200px;
+width: 300px;
+
+opacity: 0.4;" id="demo-container2">
+<div style="opacity:1;color: black;">
+</div>
+</div
+
+	<div class="panel panel-default">
+              <div class="panel-body">
+              	<div class="row">
+					  <div class="col-md-3" style="background-color: blue">.col-md-1</div>
+					  <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
+					  <div class="col-md-2" >.col-md-1</div>
+				</div>
+
+              </div>
+  
+              </div>
+            </div>
+
+
+
+<script type="text/javascript">
+function mapChange(id)
+{
+$(".maps").remove();
+var $newdiv1 = $( '<div id="2" class="col-md-6 maps col-md-offset-1">
+            <img id="zoom_02" src="{% static "img/smManMap.jpg" %}" data-zoom-image="{% static "img/ManMap.png" %}" style="width:100%">
+        </div>'),
+if (id=="1"){
+  $(".mapping").prepend($newdiv1);
+}
+if (id==2){
+  $('#mapping').append('
+        <div id="1" class="col-md-6 maps col-md-offset-1" style="display:none">
+              <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
+        </div>');
+}
+}
+</script>
+
+
+{% endblock %}
