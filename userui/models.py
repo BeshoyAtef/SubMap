@@ -31,7 +31,7 @@ class UserProfile(models.Model):
         block_seq = UserBlocks.objects.filter(user_id = self.id)
         block_order = []
         for b in block_seq:
-            sequence = b.number
+            sequence = b
             block_order.append(sequence)
 
         return block_order
@@ -43,7 +43,7 @@ class UserProfile(models.Model):
         print "hello"
         orderedQuestions = []
         for b in block :
-            trials = Trials.objects.filter(blockId = b.number).order_by('order')
+            trials = Trial.objects.filter(blockId = b.number).order_by('order')
             for trial in trials:
                 orderedQuestions.append(trial)
         return orderedQuestions
