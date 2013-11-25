@@ -9,7 +9,14 @@ from django.template import RequestContext
 
 # Create your views here.
 def test(request):
-    return render(request,'testTrial.html')
+    pnum = request.GET['participant_num']
+    current_participant = UserProfile.objects.get(id=pnum)
+    participants_blocks = current_participant.getUserBlocks()
+    print "HELLOOOOOOOOO"
+    participants_trial = current_participant.getUserTrials()
+    print "HELLOOOOOOOOO"
+    d = {'participants_blocks': participants_blocks,'participants_trial': participants_trial}
+    return render(request,'testTrial.html',d)
 
 def index(request):
     available_trails = Trial.objects.all().order_by('order')
