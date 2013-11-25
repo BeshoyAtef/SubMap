@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block nav_form %}
+                <ul class="nav navbar-nav navbar-right">            
+                  <form class="navbar-form navbar-left" action="submit/1/1/1/" method="POST">
+                    {% csrf_token %}
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="answer" placeholder="Answer">
+                    </div>
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                  </form>
+                  <li><a href="#">Undo</a></li>
+
+                </ul>
+{% endblock %}
+
 {% block content%}
   <!-- <div>
     <div> </div>
