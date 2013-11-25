@@ -3,7 +3,7 @@
 
 {% block nav_form %}
                 <ul class="nav navbar-nav navbar-right">
-                  <form class="navbar-form navbar-left" action="/submit/1/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
+                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
                     <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
                     <div class="form-group">

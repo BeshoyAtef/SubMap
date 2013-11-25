@@ -13,22 +13,31 @@ def test2(request):
     return render(request,'testTrial.html',{'trial': available_trails[0]})
 
 def test(request):
-    available_trails = Trial.objects.all().order_by('order')
-    return render(request,'testTrial.html',{'trial': available_trails[0]})
+    pnum = request.GET['participant_num']
+    current_participant = UserProfile.objects.get(id=pnum)
+    participants_blocks = current_participant.getUserBlocks()
+    next_trial=renderer(request,pnum,participants_blocks[0].number)
+    d = {'participants_blocks': participants_blocks}
+    return render(request,'testTrial.html',next_trial)
+
 
 def index(request):
     return render(request,'index.html')
 
 
 def renderer(request,user,block):
+    print user
+    print block
     user = UserProfile.objects.get(pk=user)
-    answered_trials = (Results.objects.filter(uID=user,blockID=1).values_list('trialID', flat=True))
+    answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
     print answered_trials
     if answered_trials :
-        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber__in=answered_trials).order_by('order')
+        available_trails = Trial.objects.filter(blockId=block).exclude(trialNumber__in=answered_trials).order_by('order')
     else:
-        available_trails = Trial.objects.filter(blockId=1).order_by('order')
-    return render(request,'testTrial.html',{'trial': available_trails})
+        available_trails = Trial.objects.filter(blockId=block).order_by('order')
+        print available_trails
+        print available_trails[0]
+    return {'u':user.id,'trial': available_trails[0]}
 
 def submitter(request,user,block,trial):
     flag=saver(request,user,block,trial)
@@ -42,7 +51,7 @@ def submitter(request,user,block,trial):
     else:
         available_trails = Trial.objects.filter(blockId=block).order_by('order')
         print available_trails
-    return render(request,'testTrial.html',{'trial': available_trails[0]})
+    return render(request,'testTrial.html',{'u':user.id,'trial': available_trails[0]})
 
 
 
