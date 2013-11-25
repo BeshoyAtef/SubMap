@@ -34,3 +34,5 @@ def saver(request,trail):
     result.save()
     return result
 
+def checker(request):
+    return True 
