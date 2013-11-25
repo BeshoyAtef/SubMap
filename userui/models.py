@@ -28,21 +28,22 @@ class UserProfile(models.Model):
         return "User ID :%s" % (self.id)
 
     def getUserBlocks(self):
-        block_seq = UserBlocks.objects.filter(user_id = self.id).values_list('number', flat=True)
-        # block_order = []
-        # for block in block_seq:
-        #     seq = UserBlocks.objects.get(user_id = self.id).
-        #     block_order.append(seq)
-        return block_seq
+        block_seq = UserBlocks.objects.filter(user_id = self.id)
+        block_order = []
+        for b in block_seq:
+            sequence = b.number
+            block_order.append(sequence)
+
+        return block_order
 
 
     def getUserTrials(self):
-        block = self.getUserBlocks
+        block = self.getUserBlocks()
         print block
         print "hello"
         orderedQuestions = []
         for b in block :
-            trials = Trials.objects.filter(blockId = b).order_by('order')
+            trials = Trials.objects.filter(blockId = b.number).order_by('order')
             for trial in trials:
                 orderedQuestions.append(trial)
         return orderedQuestions
