@@ -1,0 +1,69 @@
+Millisecond Javascript Timer
+
+  
+source for timer.html
+
+<html>
+<head>
+<script>
+<!--
+
+var millisec = 0;
+var seconds = 0;
+var timer;
+
+function display(){
+
+  if (millisec>=9){
+     millisec=0
+     seconds+=1
+  }
+  else
+     millisec+=1
+     document.d.d2.value = seconds + "." + millisec;
+     timer = setTimeout("display()",100);
+  }
+
+function starttimer() {
+	
+  if (timer > 0) {
+	return;
+  }
+  display();	
+}
+function stoptimer() {
+  clearTimeout(timer);
+  timer = 0;
+}
+
+// function startstoptimer() {
+//   if (timer > 0) {
+//      clearTimeout(timer);
+//      timer = 0;
+//   } else {
+//      display();
+//   }
+// }
+
+function resettimer() {
+	stoptimer();
+	millisec = 0;
+	seconds = 0;
+}
+
+
+-->
+</script>
+</head>
+<body>
+<h5>Millisecond Javascript Timer</h5>
+<form name="d">
+<input type="text" size="8" name="d2">
+<input type="button" value="Start" onclick="starttimer()">
+<input type="button" value="Stop" onclick="stoptimer()">
+<input type="reset" onclick="resettimer()">
+</form>
+
+</body></html>
+
+
