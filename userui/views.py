@@ -15,33 +15,35 @@ def test2(request):
 def test(request):
     available_trails = Trial.objects.all().order_by('order')
     return render(request,'testTrial.html',{'trial': available_trails[0]})
-    return render(request,'testTrial2.html')
 
 def index(request):
     available_trails = Trial.objects.all().order_by('order')
-    return render(request,'index.html',{'trials': available_trails})
+    return render(request,'testTrial.html',{'trial': available_trails[0]})
 
 
-def renderer(request,user,block,trial):
+def renderer(request,user,block):
     user = UserProfile.objects.get(pk=user)
-    
     answered_trials = (Results.objects.filter(uID=user,blockID=1).values_list('trialID', flat=True))
+    print answered_trials
     if answered_trials :
-        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber=answered_trials).order_by('order')
+        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber__in=answered_trials).order_by('order')
     else:
         available_trails = Trial.objects.filter(blockId=1).order_by('order')
-    return render(request,'index.html',{'trials': available_trails})
+    return render(request,'testTrial.html',{'trial': available_trails})
 
 def submitter(request,user,block,trial):
     flag=saver(request,user,block,trial)
     user = UserProfile.objects.get(pk=user)
     
-    answered_trials = (Results.objects.filter(uID=user,blockID=1).values_list('trialID', flat=True))
+    answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
+    print answered_trials
     if answered_trials :
-        available_trails = Trial.objects.filter(blockId=1).exclude(trialNumber=answered_trials).order_by('order')
+        available_trails = Trial.objects.filter(blockId=block).exclude(trialNumber__in=answered_trials).order_by('order')
+        print available_trails
     else:
-        available_trails = Trial.objects.filter(blockId=1).order_by('order')
-    return render(request,'index.html',{'trials': available_trails})
+        available_trails = Trial.objects.filter(blockId=block).order_by('order')
+        print available_trails
+    return render(request,'testTrial.html',{'trial': available_trails[0]})
 
 
 
