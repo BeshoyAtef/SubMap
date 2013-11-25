@@ -2,9 +2,17 @@
 {% load staticfiles %}
 
 {% block content%}
-   <div> 
-    <h1 class = "text-muted" style = "text-align: center;"> Greetings participant 1 <h1>
-    </div>
+   <center><div> 
+    <h1 class = "text-muted" style = "text-align: center;"> Greetings participant<h1>
+    <h5><form form action="/logged/" method="GET" id="form">
+            <div class="control-group" style="float: inline">
+                    <label>Please add your number</label>
+                    <div class="controls">
+                        <input type="text" style="width: 125px" name="participant_num" id="inputPart" placeholder="Partcipant number" autofocus =""/>
+                    </div>
+                </div>
+
+    </div></center>
   <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">instructions</h3>
@@ -43,5 +51,5 @@
             </div>
 
     <button type="submit" style="margin-left: 520px;" class="btn btn-success"> start </button>
-    
+  </form>
 {% endblock %}

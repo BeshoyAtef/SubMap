@@ -17,8 +17,7 @@ def test(request):
     return render(request,'testTrial.html',{'trial': available_trails[0]})
 
 def index(request):
-    available_trails = Trial.objects.all().order_by('order')
-    return render(request,'testTrial.html',{'trial': available_trails[0]})
+    return render(request,'index.html')
 
 
 def renderer(request,user,block):
@@ -55,3 +54,5 @@ def saver(request,user,block,trial):
     result.save()
     return True
 
+def checker(request):
+    return True 
