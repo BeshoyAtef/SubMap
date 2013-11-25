@@ -52,6 +52,23 @@ opacity: 0.4;" id="demo-container">
 
 
 
+<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+  <script>
+    $("#zoom_01").elevateZoom({
+            zoomWindowPosition: "demo-container", 
+            zoomWindowWidth:300,
+            zoomWindowHeight:200,
+            scrollZoom : true,
+            
+}); 
 
+     $("#zoom_02").elevateZoom({
+      zoomWindowPosition: "demo-container2", 
+      zoomWindowHeight:200, 
+      zoomWindowWidth:300, 
+      scrollZoom : true,
+});    
+
+</script>
 
 {% endblock %}

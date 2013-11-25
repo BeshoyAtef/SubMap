@@ -20,14 +20,14 @@
           <button type="button" class="btn btn-default" onClick="mapChange('1');">Subway Map</button>
         </div>
 
-  <div class="mapping">
+        <div class="map_area">
             <div id="2" class="col-md-6 maps col-md-offset-1">
-            <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
+              <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
+            </div>
+            <div id="1" class="col-md-6 maps col-md-offset-1" style="display:none">
+              <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
+            </div>
         </div>
-
-       
-
-  </div>
     <br>
 	  <div class="">
 
@@ -69,26 +69,30 @@ opacity: 0.4;" id="demo-container2">
               </div>
             </div>
 
-
-
-<script type="text/javascript">
-function mapChange(id)
-{
-$(".maps").remove();
-var $newdiv1 = $( '<div id="2" class="col-md-6 maps col-md-offset-1">
-            <img id="zoom_02" src="{% static "img/smManMap.jpg" %}" data-zoom-image="{% static "img/ManMap.png" %}" style="width:100%">
-        </div>'),
-if (id=="1"){
-  $(".mapping").prepend($newdiv1);
-}
-if (id==2){
-  $('#mapping').append('
-        <div id="1" class="col-md-6 maps col-md-offset-1" style="display:none">
-              <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
-        </div>');
-}
-}
-</script>
-
-
 {% endblock %}
+
+  {% block js %}
+  <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+    <script type="text/javascript">
+    function mapChange(id)
+    {
+        $(".maps").hide();
+        $("#"+id).fadeIn();
+            $("#zoom_0"+id).elevateZoom({
+                      zoomWindowPosition: "demo-container", 
+                      zoomWindowWidth:300,
+                      zoomWindowHeight:200,
+                      scrollZoom : true,
+                      
+            });
+    }
+    $("#zoom_02").elevateZoom({
+          zoomWindowPosition: "demo-container", 
+          zoomWindowWidth:300,
+          zoomWindowHeight:200,
+          scrollZoom : true,
+          
+    }); 
+    </script>
+  {% endblock %}
+

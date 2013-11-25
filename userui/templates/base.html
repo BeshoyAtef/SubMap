@@ -47,6 +47,7 @@
 
 
 
+
 {% block content %}
 
   {% block script %}
@@ -63,6 +64,8 @@
         <p>&copy; Beshoy & Mahmoud 2013</p>
       </footer>
 </div>
+
+
 <!-- end main websiteBody Div -->
 <script language="javascript" type="text/javascript" src='{% static "js/jquery-v1.7.2.js" %}'></script>
 <script language="javascript" type="text/javascript" src='{% static "js/jquery-ui-1.8.12.custom.min.js" %}'></script>
@@ -79,25 +82,10 @@
   });
   
 </script>
-<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
-  <script>
-    $("#zoom_01").elevateZoom({
-            zoomWindowPosition: "demo-container", 
-            zoomWindowWidth:300,
-            zoomWindowHeight:200,
-            scrollZoom : true,
-            
-}); 
 
-     $("#zoom_02").elevateZoom({
-      zoomWindowPosition: "demo-container2", 
-      zoomWindowHeight:200, 
-      zoomWindowWidth:300, 
-      scrollZoom : true,
-});    
-
-</script>
-
+  {% block js %}
+  
+  {% endblock %}
 
 </body>
 </html>
