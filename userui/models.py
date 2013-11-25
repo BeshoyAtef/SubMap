@@ -75,7 +75,7 @@ class Trial(models.Model):
         # return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
         return "Trial_TEXT:%s," % (self.task_text)
     class Meta:
-        unique_together = ("trialNumber","blockId")
+        unique_together = ("trialNumber","blockId","order")
 
 class Results (models.Model):
     uID = models.ForeignKey('UserProfile')
