@@ -27,14 +27,38 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return "User ID :%s" % (self.id)
 
+    def getUserBlocks(self):
+        block_seq = UserBlocks.objects.filter(user_id = self.id).values_list('number', flat=True)
+        # block_order = []
+        # for block in block_seq:
+        #     seq = UserBlocks.objects.get(user_id = self.id).
+        #     block_order.append(seq)
+        return block_seq
+
+
+    def getUserTrials(self):
+        block = self.getUserBlocks
+        print block
+        print "hello"
+        orderedQuestions = []
+        for b in block :
+            trials = Trials.objects.filter(blockId = b).order_by('order')
+            for trial in trials:
+                orderedQuestions.append(trial)
+        return orderedQuestions
+
+
 
 
 class UserBlocks(models.Model):
     number = models.CharField(max_length = 1)
-    uBlocks = models.ManyToManyField(UserProfile)
+    user = models.ForeignKey(UserProfile)
+
+    class Meta:
+        unique_together = ("user","number")
 
     def __unicode__(self):
-        return "UserBlocks_id:%s ,uBlocks:%s,Number:%s" % (self.id , self.uBlocks, self.number)
+        return "UserBlocks_id:%s,Number:%s" % (self.id, self.number)
 
 
 class Trial(models.Model):
@@ -47,8 +71,8 @@ class Trial(models.Model):
     order = models.IntegerField(default=0) 
 
     def __unicode__(self):
-        return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
-
+        # return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
+        return "Trial_TEXT:%s," % (self.task_text)
     class Meta:
         unique_together = ("trialNumber","blockId")
 
