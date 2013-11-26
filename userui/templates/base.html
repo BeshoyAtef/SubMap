@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>{{title}}</title>
+
   
 {% load staticfiles %}
   
@@ -41,7 +41,54 @@
 {% block content %}
 
   {% block script %}
+  <script>
+$( document ).ready(function() {
+        starttimer();
+    });
+$("#timer").val();
+
+</script>
+<script>
+<!--
+
+var millisec = 0;
+var seconds = 0;
+var timer;
+
+function display(){
+
+  if (millisec>=9){
+     millisec=0
+     seconds+=1
+  }
+  else
+     millisec+=1
+     document.d.d2.value = seconds + "." + millisec;
+     timer = setTimeout("display()",100);
+  }
+
+function starttimer() {
   
+  if (timer > 0) {
+  return;
+  }
+  display();  
+}
+function stoptimer() {
+  clearTimeout(timer);
+  timer = 0;
+}
+
+
+function resettimer() {
+  stoptimer();
+  millisec = 0;
+  seconds = 0;
+}
+
+
+-->
+</script>
   {% endblock %}
 <!-- USe this to add your stuff   -->
 {% endblock %}
