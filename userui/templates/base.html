@@ -22,6 +22,10 @@
 <div class="navbar navbar-default" style="margin-bottom:5px">
                 <div class="navbar-header">
                   <a class="navbar-brand" href="/">Map experiment</a>
+                  <form name="Show">
+                  <input type="text" id="x" name="MouseX" value="0" size="4">
+                  <input type="text" id="y" name="MouseY" value="0" size="4">
+                  </form>
                 </div>
 {% block nav_form %}
 
@@ -30,7 +34,7 @@
 
  </div>
 <!-- Start main websiteBody Div -->
- <div class="container" >
+ <div class="container-fluid" >
 <!-- Start TMP , Please remove me -->
 
 
@@ -40,14 +44,26 @@
 
 {% block content %}
 
-  {% block script %}
-  <script>
-$( document ).ready(function() {
-        starttimer();
-    });
-$("#timer").val();
 
-</script>
+<!-- USe this to add your stuff   -->
+{% endblock %}
+
+        
+<!-- End TMP , Please remove me -->
+      <hr>
+
+ <footer>
+        <p>&copy; Beshoy & Mahmoud 2013</p>
+      </footer>
+</div>
+
+
+<!-- end main websiteBody Div -->
+<script language="javascript" type="text/javascript" src='{% static "js/jquery-v1.7.2.js" %}'></script>
+<script src="{% static "js/bootstrap.js" %}" language="javascript" type="text/javascript"></script>
+
+  {% block script %}
+
 <script>
 <!--
 
@@ -63,7 +79,7 @@ function display(){
   }
   else
      millisec+=1
-     document.d.d2.value = seconds + "." + millisec;
+     $('#timer').val(seconds + "." + millisec);
      timer = setTimeout("display()",100);
   }
 
@@ -90,23 +106,6 @@ function resettimer() {
 -->
 </script>
   {% endblock %}
-<!-- USe this to add your stuff   -->
-{% endblock %}
-
-        
-<!-- End TMP , Please remove me -->
-      <hr>
-
- <footer>
-        <p>&copy; Beshoy & Mahmoud 2013</p>
-      </footer>
-</div>
-
-
-<!-- end main websiteBody Div -->
-<script language="javascript" type="text/javascript" src='{% static "js/jquery-v1.7.2.js" %}'></script>
-<script language="javascript" type="text/javascript" src='{% static "js/jquery-ui-1.8.12.custom.min.js" %}'></script>
-<script src="{% static "js/bootstrap.js" %}" language="javascript" type="text/javascript"></script>
 
 <script language="javascript" type="text/javascript">
   // use load event on window to start the script

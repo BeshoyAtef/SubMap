@@ -40,6 +40,7 @@ def renderer(request,user,block):
     return {'u':user.id,'trial': available_trails[0]}
 
 def submitter(request,user,block,trial):
+    print request.POST["d2"]
     flag=saver(request,user,block,trial)
     user = UserProfile.objects.get(pk=user)
     
