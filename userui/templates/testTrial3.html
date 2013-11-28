@@ -29,7 +29,10 @@
 
     .col-md-2{
       background-color: gray
-      }</style>
+      }
+      .zoomContainer{
+        z-index: -1;
+        }</style>
   <div class="row">
             <div class="">
           <a class="">
@@ -265,7 +268,7 @@ opacity: 0.4;" id="demo-container">
                   //alert(distTemp);
                   var txtTmp=""+pointTemp[0]+","+pointTemp[1]+","+pointTemp[2]
                  
-                  $('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
+                  //$('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
                 }
                 //if (coords[i].[0])
                 // alert(coords[i]);
@@ -283,7 +286,20 @@ opacity: 0.4;" id="demo-container">
           $('#y').val(tempY)
           return true
         }
-
+     $("#zoom_01").elevateZoom({
+           zoomWindowPosition: "demo-container", 
+           zoomWindowWidth:400,
+           zoomWindowHeight:200,
+           scrollZoom : true,
+           
+     });    
+    $("#zoom_02").elevateZoom({
+          zoomWindowPosition: "demo-container", 
+          zoomWindowWidth:400,
+          zoomWindowHeight:200,
+          scrollZoom : true,
+          
+    }); 
 
 </script>
 {% endblock %}
