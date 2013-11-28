@@ -2,20 +2,19 @@
 {% load staticfiles %}
 
 {% block nav_form %}
-                <ul class="nav navbar-nav navbar-right">
-                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
+                <ul class="nav navbar-nav navbar-right">            
+                  <form class="navbar-form navbar-left" action="submit/1/1/1/" method="POST">
                     {% csrf_token %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
                     <div class="form-group">
                       <input type="text" class="form-control" name="answer" placeholder="Answer">
                     </div>
-                    <input type="text" name="d2" id= "timer" display="none">
+                    <input type="text" name="d2" id="timer" style="display:none">
                     <button type="submit" class="btn btn-success">Confirm</button>
                   </form>
                   <li><a href="#">Undo</a></li>
 
                 </ul>
-
 {% endblock %}
 
 {% block content%}
@@ -26,69 +25,92 @@
   </div> -->
   <style type="text/css">
 
-  	.col-md-2{
-  		background-color: gray
-  		}</style>
-  <div class="row">
-	  <a class="col-md-6">
-  	  	<div class="">
-  		  	<img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
-  	  	</div>
-	  </a>
-	  <div class="col-md-6 ">
-	  	<a class="">
-		  	<img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
-	  	</div>
-	  </a>
+    .col-md-2{
+      background-color: gray
+      }</style>
+
+  <div class="row" >
+7
+
+        <div class="btn-group-vertical col-md-2  col-md-offset-10" style="background-color: white;position:fixed">
+          <button type="button" class="btn btn-default" onClick="mapChange('2');">City Map</button>
+          <button type="button" class="btn btn-default" onClick="mapChange('1');">Subway Map</button>
+        </div>
+
+        <div class="map_area">
+            <div id="2" class="col-md-6 maps col-md-offset-3">
+              <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
+            </div>
+            <div id="1" class="col-md-6 maps col-md-offset-3" style="display:none">
+              <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
+            </div>
+        </div>
+    <br>
+    <div class="">
+
+    </div>
   </div>
   <div style="
 position: fixed;
 left: 0;
 bottom: 0;
 height: 200px;
-width: 300px;
+width: 400px;
 
 opacity: 0.4;" id="demo-container">
 <div style="opacity:1;color: black;">
 </div>
 </div>
+  <div style="
+position: fixed;
+left: 0;
+bottom: 0;
+height: 200px;
+width: 400px;
 
-	<div class="panel panel-default">
+opacity: 0.4;" id="demo-container2">
+<div style="opacity:1;color: black;">
+</div>
+</div
+
+  <div class="panel panel-default">
               <div class="panel-body">
-              	<div class="row">
-					  <div class="col-md-3" style="background-color: blue">.col-md-1</div>
-					  <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
-					  <div class="col-md-2" >.col-md-1</div>
-				</div>
+                <div class="row">
+            <div class="col-md-3" style="background-color: blue">.col-md-1</div>
+            <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
+            <div class="col-md-2" >.col-md-1</div>
+        </div>
 
               </div>
   
               </div>
             </div>
 
-
-
-
 {% endblock %}
 
-{% block js %}
+  {% block js %}
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+    <script type="text/javascript">
+    function mapChange(id)
+    {
+      $( ".maps").toggle( "slide", "slow" );
+        $("#"+id).fadeIn("slow");
+            $("#zoom_0"+id).elevateZoom({
+                      zoomWindowPosition: "demo-container", 
+                      zoomWindowWidth:400,
+                      zoomWindowHeight:200,
+                      scrollZoom : true,
+                      
+            });
+    }
+    $("#zoom_02").elevateZoom({
+          zoomWindowPosition: "demo-container", 
+          zoomWindowWidth:400,
+          zoomWindowHeight:200,
+          scrollZoom : true,
+          
+    }); 
+    </script>
+  {% endblock %}
 
-<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
-  <script>
-    $("#zoom_01").elevateZoom({
-            zoomWindowPosition: "demo-container", 
-            zoomWindowWidth:300,
-            zoomWindowHeight:200,
-            scrollZoom : true,
-            
-}); 
-
-     $("#zoom_02").elevateZoom({
-      zoomWindowPosition: "demo-container", 
-      zoomWindowHeight:200, 
-      zoomWindowWidth:300, 
-      scrollZoom : true,
-});    
-
-</script>
-{% endblock %}
