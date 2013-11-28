@@ -6,13 +6,23 @@
                   <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
                     <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+
                     <div class="form-group">
                       <input type="text" class="form-control" name="answer" placeholder="Answer">
                     </div>
                     <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
                     <button type="submit" class="btn btn-success">Confirm</button>
+                    <div class="btn-group">
+                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                        Selected Items <span id="count_selected"></span>
+                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" >
+                        <li role="presentation" class="disabled" id="div_selected">
+                        </li>
+                      </ul>
+                    </div>
                   </form>
-                  <li><a href="#">Undo</a></li>
                 </ul>
 
 {% endblock %}
@@ -386,13 +396,7 @@
     </div>
 
 </div>
-    </a>
-    <div class="col-md-6 ">
-      <a class="">
-        <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
-      </div>
-    </a>
-  </div>
+
 
   </div>
   <div style="
@@ -410,7 +414,7 @@ opacity: 0.4;" id="demo-container">
   <div class="panel panel-default">
               <div class="panel-body">
                 <div class="row">
-            <div class="col-md-3" style="background-color: blue">.col-md-1</div>
+            <div class="col-md-3"  style="background-color: blue">.col-md-1</div>
             <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
             <div class="col-md-2" >.col-md-1</div>
         </div>
@@ -438,8 +442,23 @@ opacity: 0.4;" id="demo-container">
             var data = $(this).mouseout().data('maphilight') || {};
             data.alwaysOn = !data.alwaysOn;
             $(this).data('maphilight', data).trigger('alwaysOn.maphilight');
+            $(this).toggleClass("clicked");
+            checkclicked();
         });
-    });</script>
+    });
+function checkclicked(){
+  $("#div_selected").html("");
+
+  var $html =""
+  var $clicked_items=$( ".clicked" );
+  $clicked_items.each(function() {
+  $("#count_selected").html("("+$clicked_items.length+")")
+  $html = $html+'<a role="menuitem" tabindex="1" href="#">' + $(this).attr("alt")+'</a>' ;
+});
+
+  $("#div_selected").html($html);
+}
+    </script>
 
   <script>
 
