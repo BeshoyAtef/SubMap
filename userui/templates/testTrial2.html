@@ -2,10 +2,10 @@
 {% load staticfiles %}
 
 {% block nav_form %}
-                <ul class="nav navbar-nav navbar-right">            
-                  <form class="navbar-form navbar-left" action="submit/1/1/1/" method="POST">
+                <ul class="nav navbar-nav navbar-right">
+                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
                     <div class="form-group">
                       <input type="text" class="form-control" name="answer" placeholder="Answer">
                     </div>
@@ -37,10 +37,10 @@
         </div>
 
         <div class="map_area">
-            <div id="2" class="col-md-6 maps col-md-offset-1">
+            <div id="2" class="col-md-7 maps ">
               <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
             </div>
-            <div id="1" class="col-md-6 maps col-md-offset-1" style="display:none">
+            <div id="1" class="col-md-7 maps " style="display:none">
               <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
             </div>
         </div>
