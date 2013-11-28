@@ -18,8 +18,12 @@ def test(request):
     participants_blocks = current_participant.getUserBlocks()
     next_trial=renderer(request,pnum,participants_blocks[0].number)
     d = {'participants_blocks': participants_blocks}
-    return render(request,'testTrial.html',next_trial)
-
+    if next_trial["trial"].technique == 1:
+        return render(request,'testTrial.html',next_trial)
+    elif next_trial["trial"].technique == 2:
+        return render(request,'testTrial2.html',next_trial)
+    else :
+        return render(request,'testTrial3.html',next_trial)
 
 def index(request):
     return render(request,'index.html')
@@ -28,7 +32,7 @@ def index(request):
 def renderer(request,user,block):
     print user
     print block
-    user = UserProfile.objects.get(pk=user)
+    user = UserProfile.objects.get(pk=user)    
     answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
     print answered_trials
     if answered_trials :
@@ -43,7 +47,6 @@ def submitter(request,user,block,trial):
     print request.POST["d2"]
     flag=saver(request,user,block,trial)
     user = UserProfile.objects.get(pk=user)
-    
     answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
     print answered_trials
     if answered_trials :
@@ -52,7 +55,13 @@ def submitter(request,user,block,trial):
     else:
         available_trails = Trial.objects.filter(blockId=block).order_by('order')
         print available_trails
-    return render(request,'testTrial.html',{'u':user.id,'trial': available_trails[0]})
+    next_trial=available_trails[0]    
+    if next_trial.technique == 1:
+        return render(request,'testTrial.html',{'trial': next_trial})
+    elif next_trial.technique == 2:
+        return render(request,'testTrial2.html',{'trial': next_trial})
+    else :
+        return render(request,'testTrial3.html',{'trial': next_trial})
 
 
 

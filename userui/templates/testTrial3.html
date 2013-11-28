@@ -19,6 +19,7 @@
 
 {% block content%}
 
+
   <!-- <div>
     <div> </div>
     <div style="float:left; width:500px; backgroud: RED"> </div>
@@ -159,17 +160,30 @@
     </a>
 
     <div class="btn-group-vertical col-md-2" style="background-color: white">
-      <button type="button" class="btn btn-default" id="highlight link">1 Station</button>
-      <button type="button" class="btn btn-default" >2 Station</button>
       <a id="hilightlink" href="#">Mouse over this to trigger a hilight from an external element!</a>
     </div>
-<!--    <div class="col-md-6 ">
+
+</div>
+    </a>
+    <div class="col-md-6 ">
       <a class="">
         <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
       </div>
     </a>
-  </div> -->
+  </div>
 
+  </div>
+  <div style="
+position: fixed;
+left: 0;
+bottom: 0;
+height: 200px;
+width: 300px;
+
+opacity: 0.4;" id="demo-container">
+<div style="opacity:1;color: black;">
+</div>
+</div>
 
   <div class="panel panel-default">
               <div class="panel-body">
@@ -269,6 +283,7 @@
           $('#y').val(tempY)
           return true
         }
+
 
 </script>
 {% endblock %}
