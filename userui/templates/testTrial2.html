@@ -6,15 +6,25 @@
                   <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
                     <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="answer" placeholder="Answer">
-                    </div>
-                    <input type="text" name="d2" id="timer" display="none">
-                    <button type="submit" class="btn btn-success">Confirm</button>
-                  </form>
-                  <li><a href="#">Undo</a></li>
 
+                    <div class="form-group">
+                      <input type="text" id="answer_inp" class="form-control" style="width: 300px;text-align: center;" value="" name="answer" placeholder="Answer">
+                    </div>
+                    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                    <div class="btn-group">
+                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                        Selected Items <span id="count_selected"></span>
+                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" >
+                        <li role="presentation" class="disabled" id="div_selected">
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
                 </ul>
+
 {% endblock %}
 
 {% block content%}
@@ -71,21 +81,23 @@ width: 400px;
 opacity: 0.4;" id="demo-container2">
 <div style="opacity:1;color: black;">
 </div>
-</div
+</div>
 
-  <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="row">
-            <div class="col-md-3" style="background-color: blue">.col-md-1</div>
-            <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
-            <div class="col-md-2" >.col-md-1</div>
-        </div>
 
-              </div>
-  
-              </div>
-            </div>
 
+
+<a href="#" class="scrollup btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>Top</a>
+<style type="text/css">
+
+  .scrollup{
+   
+    position:fixed;
+    bottom:30px;
+    left:600px;
+    display:none;
+    color: white;
+}
+</style>
 {% endblock %}
 
   {% block js %}

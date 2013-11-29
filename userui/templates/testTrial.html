@@ -2,22 +2,34 @@
 {% load staticfiles %}
 
 {% block nav_form %}
-                <ul class="nav navbar-nav navbar-right">            
-                  <form class="navbar-form navbar-left" action="submit/1/1/1/" method="POST">
+                <ul class="nav navbar-nav navbar-right">
+                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="answer" placeholder="Answer">
-                    </div>
-                    <input type="text" name="d2" id="timer" style="display:none">
-                    <button type="submit" class="btn btn-success">Confirm</button>
-                  </form>
-                  <li><a href="#">Undo</a></li>
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
 
+                    <div class="form-group">
+                      <input type="text" id="answer_inp" class="form-control" style="width: 300px;text-align: center;" value="" name="answer" placeholder="Answer">
+                    </div>
+                    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                    <div class="btn-group">
+                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                        Selected Items <span id="count_selected"></span>
+                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" >
+                        <li role="presentation" class="disabled" id="div_selected">
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
                 </ul>
+
 {% endblock %}
 
 {% block content%}
+
+
   <!-- <div>
     <div> </div>
     <div style="float:left; width:500px; backgroud: RED"> </div>
@@ -27,83 +39,216 @@
 
     .col-md-2{
       background-color: gray
-      }</style>
-
-  <div class="row" >
-7
-
-        <div class="btn-group-vertical col-md-2  col-md-offset-10" style="background-color: white;position:fixed">
-          <button type="button" class="btn btn-default" onClick="mapChange('2');">City Map</button>
-          <button type="button" class="btn btn-default" onClick="mapChange('1');">Subway Map</button>
+      }
+      .zoomContainer{
+        z-index: -1;
+        }</style>
+  <div class="row">
+            <div class="">
+          <a class="">
+        </a>
+      </div>
+    <a class="">
+        <div>
+          <div style="margin-left: 00px">
+          <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800"   border="0" usemap="#map">
+          </div>
+          <div style="">
+          <img id="zoom_02" src='{% static "img/smusedStreetMapFinal.jpg" %}' data-zoom-image='{% static "img/usedStreetMapFinal.jpg" %}' usemap="#map2" width="1000">
+          </div>
+          {% include "metropoints.html" %}
+          {% include "citypoints.html" %}
         </div>
+    </a>
 
-        <div class="map_area">
-            <div id="2" class="col-md-6 maps col-md-offset-3">
-              <img id="zoom_02" src='{% static "img/smManMap.jpg" %}' data-zoom-image='{% static "img/ManMap.png" %}' style="width:100%">
-            </div>
-            <div id="1" class="col-md-6 maps col-md-offset-3" style="display:none">
-              <img id="zoom_01" src='{% static "img/smmanMetroMap.jpg" %}' data-zoom-image='{% static "img/manMetroMap.png" %}' style="width:100%">
-            </div>
-        </div>
-    <br>
-    <div class="">
 
-    </div>
+</div>
+
+
   </div>
   <div style="
 position: fixed;
 left: 0;
 bottom: 0;
 height: 200px;
-width: 400px;
-
+width: 300px;
 opacity: 0.4;" id="demo-container">
 <div style="opacity:1;color: black;">
 </div>
 </div>
-  <div style="
-position: fixed;
-left: 0;
-bottom: 0;
-height: 200px;
-width: 400px;
 
-opacity: 0.4;" id="demo-container2">
-<div style="opacity:1;color: black;">
-</div>
-</div
 
-  <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="row">
-            <div class="col-md-3" style="background-color: blue">.col-md-1</div>
-            <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
-            <div class="col-md-2" >.col-md-1</div>
-        </div>
 
-              </div>
-  
-              </div>
-            </div>
+<a href="#" class="scrollup btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>
+Top</a>
+<style type="text/css">
+
+  .scrollup{
+   
+    position:fixed;
+    bottom:30px;
+    left:600px;
+    display:none;
+    color: white;
+}
+</style>
 
 {% endblock %}
 
-  {% block js %}
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
-    <script type="text/javascript">
-    function mapChange(id)
-    {
-      $( ".maps").toggle( "slide", "slow" );
-        $("#"+id).fadeIn("slow");
-            $("#zoom_0"+id).elevateZoom({
-                      zoomWindowPosition: "demo-container", 
-                      zoomWindowWidth:400,
-                      zoomWindowHeight:200,
-                      scrollZoom : true,
-                      
-            });
-    }
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function(){ 
+
+ 
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        }); 
+ 
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+ 
+    });
+</script>
+
+
+<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+<script src="{% static "js/jquery.maphilight.min.js" %}"></script>
+
+    <script>$(function() {
+
+
+      var area_tmp =  $('#map2_div area');
+      var classes = "";
+      var class_to_show = "";
+
+            area_tmp.click(function(e) {
+            e.preventDefault();
+            area_tmp.mouseout();
+            var data = $(this).mouseout().data('maphilight') || {};
+            data.alwaysOn = !data.alwaysOn;
+            $(this).data('maphilight', data).trigger('alwaysOn.maphilight');
+            $(this).toggleClass("clicked");
+            console.log($(this).attr('class'));
+            console.log($(this));
+           classes = $(this).attr('class');
+           class_to_show = classes.split(" ");
+           $("."+class_to_show).mouseover();
+           checkclicked();
+
+        });
+
+    });
+
+  function changeval(changed){
+    $("#answer_inp").val(changed);
+
+  }
+
+function checkclicked(){
+  var div_selected_tmp = $("#div_selected");
+ div_selected_tmp.html("");
+
+  var $html =""
+  var $clicked_items=$( ".clicked" );
+  $clicked_items.each(function() {
+  $("#count_selected").html("("+$clicked_items.length+")")
+  var $tmp_alt = $(this).attr("alt");
+  $html = $html+'<li role="presentation"><a role="menuitem" class="selected_itms" value=0 tabindex="1"  onClick="changeval(\'' + $tmp_alt + '\')" href="#" >'+ $tmp_alt +'</a></li>';
+
+// $("#answer_inp").val('+$tmp_alt +');
+  
+});
+
+  div_selected_tmp.html($html);
+}
+    </script>
+
+  <script>
+
+
+
+   $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
+   $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});;
+
+        $( document ).ready(function() {
+        starttimer();
+    });
+        // var coords = [];
+        // [].forEach.call(document.querySelectorAll("area"), function (value, index, array) {
+        //     coords.push(value.getAttribute("coords").split(","));
+        // });
+
+        // console.log(coords);
+
+
+        // var IE = document.all?true:false
+
+        // If NS -- that is, !IE -- then set up for mouse capture
+        // if (!IE) document.captureEvents(Event.MOUSEMOVE)
+
+        // document.onmousemove = getMouseXY;
+
+
+        // Temporary variables to hold mouse x-y pos.s
+        // var tempX = 0
+        // var tempY = 0
+        // Main function to retrieve mouse x-y pos.s
+
+        // function getMouseXY(e) {
+        //   if (IE) { // grab the x-y pos.s if browser is IE
+        //     tempX = event.clientX + document.body.scrollLeft
+        //     tempY = event.clientY + document.body.scrollTop
+        //   } else {  // grab the x-y pos.s if browser is NS
+        //     tempX = e.pageX
+        //     tempY = e.pageY
+
+        //     tempXplus = tempX+50
+        //     tempYplus = tempY+50
+        //     for (var i = 0; i < coords.length; i++) {
+        //       pointTemp=coords[i]
+        //       distTemp =
+        //         Math.sqrt(
+        //           ((pointTemp[0] - tempX)*(pointTemp[0] - tempX))+ 
+        //           ((pointTemp[1] - tempY)*(pointTemp[1] - tempY))
+        //           );
+                
+        //         if(distTemp<30){
+        //         console.log(distTemp+":SHow");
+
+        //           //alert(distTemp);
+        //           var txtTmp=""+pointTemp[0]+","+pointTemp[1]+","+pointTemp[2]
+                 
+        //           //$('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
+        //         }
+        //         //if (coords[i].[0])
+        //         // alert(coords[i]);
+        //         //Do something
+        //     }
+
+        //   }  
+        //   // catch possible negative values in NS4
+        //   if (tempX < 0){tempX = 0}
+        //   if (tempY < 0){tempY = 0}  
+        //   // show the position values in the form named Show
+        //   // in the text fields named MouseX and MouseY
+
+        //   $('#x').val(tempX)
+        //   $('#y').val(tempY)
+        //   return true
+        // }
+     $("#zoom_01").elevateZoom({
+           zoomWindowPosition: "demo-container", 
+           zoomWindowWidth:400,
+           zoomWindowHeight:200,
+           scrollZoom : true,
+           
+     });    
     $("#zoom_02").elevateZoom({
           zoomWindowPosition: "demo-container", 
           zoomWindowWidth:400,
@@ -111,6 +256,6 @@ opacity: 0.4;" id="demo-container2">
           scrollZoom : true,
           
     }); 
-    </script>
-  {% endblock %}
 
+</script>
+{% endblock %}

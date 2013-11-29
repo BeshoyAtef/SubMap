@@ -74,11 +74,11 @@ def submitter(request,user,block,trial):
         print available_trails
     next_trial=available_trails[0]    
     if next_trial.technique == 1:
-        return render(request,'testTrial.html',{'trial': next_trial})
+        return render(request,'testTrial.html',{'u':user.id,'trial': next_trial})
     elif next_trial.technique == 2:
-        return render(request,'testTrial2.html',{'trial': next_trial})
+        return render(request,'testTrial2.html',{'u':user.id,'trial': next_trial})
     else :
-        return render(request,'testTrial3.html',{'trial': next_trial})
+        return render(request,'testTrial3.html',{'u':user.id,'trial': next_trial})
 
 
 
