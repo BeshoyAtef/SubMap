@@ -87,3 +87,13 @@ class Results (models.Model):
     class Meta:
         unique_together = ("uID","blockID","trialID")
 
+class Colortest (models.Model):
+    uID = models.ForeignKey('UserProfile')
+    answer_1 = models.IntegerField(default = 0)
+    answer_2 = models.IntegerField(default = 0)
+    answer_3 = models.IntegerField(default = 0)
+    answer_4 = models.IntegerField(default = 0)
+    answer_5 = models.IntegerField(default = 0)
+    answer_6 = models.IntegerField(default = 0)
+
+

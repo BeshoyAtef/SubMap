@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block nav_form %}
+
+{% endblock %}
+
+{% block content%}
+<center>
+	<style type="text/css">
+	.form-control {
+		width: 250px;
+		text-align: center;
+		}
+
+		</style>
+	<form  action="/submit_test/" method="POST" style="margin-top: 60px">
+		<div class="panel panel-success" style="width:800px">
+              <div class="panel-body">
+		<h2>What is the number you see in the circle below ?</h2>
+              </div>
+            </div>
+	  {% csrf_token %}
+<div id="1">
+	<img src='{% static "img/no2.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="1" placeholder="Answer">
+	</div>
+	<a class="btn btn-success" onclick="$('#1').hide();$('#2').fadeIn();">Confirm</a>
+</div>
+<div id="2" style="display:none" >
+	<img src='{% static "img/no10.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="2" placeholder="Answer">
+	</div>
+	<a class="btn btn-success" onclick="$('#2').hide();$('#3').fadeIn();">Confirm</a>
+</div>
+<div id="3" style="display:none" >
+	<img src='{% static "img/no16.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="3" placeholder="Answer">
+	</div>
+	<a class="btn btn-success"  onclick="$('#3').hide();$('#4').fadeIn();">Confirm</a>
+</div>
+<div id="4" style="display:none">
+	<img src='{% static "img/no29.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="4" placeholder="Answer">
+	</div>
+	<a class="btn btn-success" onclick="$('#4').hide();$('#5').fadeIn();">Confirm</a>
+</div>
+<div id="5" style="display:none">
+	<img src='{% static "img/no5.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="5" placeholder="Answer">
+	</div>
+	<a class="btn btn-success" onclick="$('#5').hide();$('#6').fadeIn();">Confirm</a>
+</div>
+<div id="6" style="display:none">
+	<img src='{% static "img/no7.jpg" %}' >
+	<div class="form-group">
+	  <input type="text" class="form-control" name="5" placeholder="Answer">
+	</div>
+     <button type="submit" class="btn btn-success">Confirm</button>
+</div>
+</form>
+</center>
+{% endblock %}
+

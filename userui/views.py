@@ -28,6 +28,23 @@ def test(request):
 def index(request):
     return render(request,'index.html')
 
+def colortest_view(request):
+    return render(request,'colortest.html')
+
+def submit_colortest(request):
+    x= Colortest(
+        uID = UserProfile.objects.get(pk=request.POST["UID"]),
+        answer_1 = request.POST["1"],
+        answer_2 = request.POST["2"],
+        answer_3 = request.POST["3"],
+        answer_4 = request.POST["4"],
+        answer_5 = request.POST["5"],
+        answer_6 = request.POST["6"])
+    x.save()
+    if x.answer_1 == 2 and x.answer_2 == 10 and x.answer_3 == 16 and x.answer_4 == 19 and x.answer_5 == 5 and x.answer_6 == 7:
+        return render(request,'index.html',{'Pass': True})
+    else:
+        return render(request,'index.html',{'Pass': False})
 
 def renderer(request,user,block):
     print user

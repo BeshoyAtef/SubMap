@@ -1,7 +1,7 @@
    function Zoom(amount) {
       // resize image
-      var image = document.getElementById('image');
-      image.height = image.height * amount;
+     // var image = document.getElementById('image');
+     // image.height = image.height * amount;
 
       // resize image map
       var map = document.getElementById('map');

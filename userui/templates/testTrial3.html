@@ -49,19 +49,18 @@
         </a>
       </div>
     <a class="">
-        <div class="">
-
-          {# <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800" height="1842"  style="float:left;" border="0" usemap="#map"> #}
-
-          <img id="zoom_02" src='{% static "img/usedStreetMapFinal.jpg" %}' usemap="#map2" width="1000">
+        <div >
+          <div style="margin-left: 200px">
+          <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800"   border="0" usemap="#map">
+          </div>
+          <div style="">
+          <img id="zoom_02" src='{% static "img/smusedStreetMapFinal.jpg" %}' data-zoom-image='{% static "img/usedStreetMapFinal.jpg" %}' usemap="#map2" width="1000">
+          </div>
           {% include "metropoints.html" %}
           {% include "citypoints.html" %}
         </div>
     </a>
 
-    <div class="btn-group-vertical col-md-2" style="background-color: white">
-      <a id="hilightlink" href="#">Mouse over this to trigger a hilight from an external element!</a>
-    </div>
 
 </div>
 
@@ -79,32 +78,51 @@ opacity: 0.4;" id="demo-container">
 </div>
 </div>
 
-  <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="row">
-            <div class="col-md-3"  style="background-color: blue">.col-md-1</div>
-            <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
-            <div class="col-md-2" >.col-md-1</div>
-        </div>
-
-              </div>
-  
-              </div>
-            </div>
 
 
+<a href="#" class="scrollup">Back to Top</a>
+<style type="text/css">
 
+  .scrollup{
+    height:40px;
+    opacity:0.5;
+    position:fixed;
+    bottom:50px;
+    right:1500px;
+    display:none;
+    text-indent:-9999px;
+    background-color: green;
+    color: black;
+}
+</style>
 
 {% endblock %}
 
 {% block js %}
+<script type="text/javascript">
+    $(document).ready(function(){ 
+ 
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        }); 
+ 
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+ 
+    });
+</script>
+
 
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
 <script src="{% static "js/jquery.maphilight.min.js" %}"></script>
     <script>$(function() {
-        $('.map').maphilight({
-            fillColor: '008800'
-        });
+        
         $('.star').click(function(e) {
             e.preventDefault();
             var data = $(this).mouseout().data('maphilight') || {};
@@ -132,8 +150,8 @@ function checkclicked(){
 
 
 
-   $('#zoom_01').maphilight();
-   $('#zoom_02').maphilight();
+   $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
+   $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
 
    $('#hilightlink').mouseover(function(e) {
             $('#square2').mouseover();
@@ -144,70 +162,70 @@ function checkclicked(){
         $( document ).ready(function() {
         starttimer();
     });
-        var coords = [];
-        [].forEach.call(document.querySelectorAll("area"), function (value, index, array) {
-            coords.push(value.getAttribute("coords").split(","));
-        });
+        // var coords = [];
+        // [].forEach.call(document.querySelectorAll("area"), function (value, index, array) {
+        //     coords.push(value.getAttribute("coords").split(","));
+        // });
 
-        console.log(coords);
+        // console.log(coords);
 
 
-        var IE = document.all?true:false
+        // var IE = document.all?true:false
 
         // If NS -- that is, !IE -- then set up for mouse capture
-        if (!IE) document.captureEvents(Event.MOUSEMOVE)
+        // if (!IE) document.captureEvents(Event.MOUSEMOVE)
 
-        document.onmousemove = getMouseXY;
+        // document.onmousemove = getMouseXY;
 
 
         // Temporary variables to hold mouse x-y pos.s
-        var tempX = 0
-        var tempY = 0
+        // var tempX = 0
+        // var tempY = 0
 
         // Main function to retrieve mouse x-y pos.s
 
-        function getMouseXY(e) {
-          if (IE) { // grab the x-y pos.s if browser is IE
-            tempX = event.clientX + document.body.scrollLeft
-            tempY = event.clientY + document.body.scrollTop
-          } else {  // grab the x-y pos.s if browser is NS
-            tempX = e.pageX
-            tempY = e.pageY
+        // function getMouseXY(e) {
+        //   if (IE) { // grab the x-y pos.s if browser is IE
+        //     tempX = event.clientX + document.body.scrollLeft
+        //     tempY = event.clientY + document.body.scrollTop
+        //   } else {  // grab the x-y pos.s if browser is NS
+        //     tempX = e.pageX
+        //     tempY = e.pageY
 
-            tempXplus = tempX+50
-            tempYplus = tempY+50
-            for (var i = 0; i < coords.length; i++) {
-              pointTemp=coords[i]
-              distTemp =
-                Math.sqrt(
-                  ((pointTemp[0] - tempX)*(pointTemp[0] - tempX))+ 
-                  ((pointTemp[1] - tempY)*(pointTemp[1] - tempY))
-                  );
+        //     tempXplus = tempX+50
+        //     tempYplus = tempY+50
+        //     for (var i = 0; i < coords.length; i++) {
+        //       pointTemp=coords[i]
+        //       distTemp =
+        //         Math.sqrt(
+        //           ((pointTemp[0] - tempX)*(pointTemp[0] - tempX))+ 
+        //           ((pointTemp[1] - tempY)*(pointTemp[1] - tempY))
+        //           );
                 
-                if(distTemp<30){
-                console.log(distTemp+":SHow");
+        //         if(distTemp<30){
+        //         console.log(distTemp+":SHow");
 
-                  //alert(distTemp);
-                  var txtTmp=""+pointTemp[0]+","+pointTemp[1]+","+pointTemp[2]
+        //           //alert(distTemp);
+        //           var txtTmp=""+pointTemp[0]+","+pointTemp[1]+","+pointTemp[2]
                  
-                  //$('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
-                }
-                //if (coords[i].[0])
-                // alert(coords[i]);
-                //Do something
-            }
+        //           //$('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
+        //         }
+        //         //if (coords[i].[0])
+        //         // alert(coords[i]);
+        //         //Do something
+        //     }
 
-          }  
-          // catch possible negative values in NS4
-          if (tempX < 0){tempX = 0}
-          if (tempY < 0){tempY = 0}  
-          // show the position values in the form named Show
-          // in the text fields named MouseX and MouseY
+        //   }  
+        //   // catch possible negative values in NS4
+        //   if (tempX < 0){tempX = 0}
+        //   if (tempY < 0){tempY = 0}  
+        //   // show the position values in the form named Show
+        //   // in the text fields named MouseX and MouseY
 
-          $('#x').val(tempX)
-          $('#y').val(tempY)
-          return true
-        }
+        //   $('#x').val(tempX)
+        //   $('#y').val(tempY)
+        //   return true
+        // }
      $("#zoom_01").elevateZoom({
            zoomWindowPosition: "demo-container", 
            zoomWindowWidth:400,
