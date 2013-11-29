@@ -5,7 +5,11 @@
                 <ul class="nav navbar-nav navbar-right">            
                   <form class="navbar-form navbar-left" action="submit/1/1/1/" method="POST">
                     {% csrf_token %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+                    {% if trial.task == 1 %}
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please find the route with the minimum number of stations starting from {{trial.pointA}} reaching {{trial.pointB}}. <br> Kindly submit the number of stations you found and mark them on the map." role="button" data-original-title="A Title">Instructions</a>
+                    {% elif trial == 2 %}
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please pinpoint the nearest station to {{trial.pointA}}. <br> kindly, submit its name in the text field." role="button" data-original-title="A Title">Instructions</a>
+                    {% endif %}
                     <div class="form-group">
                       <input type="text" class="form-control" name="answer" placeholder="Answer">
                     </div>
