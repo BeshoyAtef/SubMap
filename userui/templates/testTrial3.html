@@ -50,7 +50,7 @@
       </div>
     <a class="">
         <div >
-          <div style="margin-left: 200px">
+          <div style="margin-left: 00px">
           <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800"   border="0" usemap="#map">
           </div>
           <div style="">
@@ -72,7 +72,6 @@ left: 0;
 bottom: 0;
 height: 200px;
 width: 300px;
-
 opacity: 0.4;" id="demo-container">
 <div style="opacity:1;color: black;">
 </div>
@@ -80,19 +79,17 @@ opacity: 0.4;" id="demo-container">
 
 
 
-<a href="#" class="scrollup">Back to Top</a>
+<a href="#" class="scrollup btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>
+Top</a>
 <style type="text/css">
 
   .scrollup{
-    height:40px;
-    opacity:0.5;
+   
     position:fixed;
-    bottom:50px;
-    right:1500px;
+    bottom:30px;
+    left:600px;
     display:none;
-    text-indent:-9999px;
-    background-color: green;
-    color: black;
+    color: white;
 }
 </style>
 
@@ -101,6 +98,7 @@ opacity: 0.4;" id="demo-container">
 {% block js %}
 <script type="text/javascript">
     $(document).ready(function(){ 
+
  
         $(window).scroll(function(){
             if ($(this).scrollTop() > 100) {
@@ -122,18 +120,32 @@ opacity: 0.4;" id="demo-container">
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
 <script src="{% static "js/jquery.maphilight.min.js" %}"></script>
     <script>$(function() {
-        
-        $('.star').click(function(e) {
+
+      var area_tmp =  $('#map2_div area');
+      var classes = "";
+      var class_to_show = "";
+
+            area_tmp.click(function(e) {
             e.preventDefault();
+            area_tmp.mouseout();
             var data = $(this).mouseout().data('maphilight') || {};
             data.alwaysOn = !data.alwaysOn;
             $(this).data('maphilight', data).trigger('alwaysOn.maphilight');
             $(this).toggleClass("clicked");
-            checkclicked();
+            console.log($(this).attr('class'));
+            console.log($(this));
+           classes = $(this).attr('class');
+           class_to_show = classes.split(" ");
+           $("."+class_to_show).mouseover();
+           checkclicked();
+
         });
+
     });
+
 function checkclicked(){
-  $("#div_selected").html("");
+  var div_selected_tmp = $("#div_selected");
+ div_selected_tmp.html("");
 
   var $html =""
   var $clicked_items=$( ".clicked" );
@@ -142,7 +154,7 @@ function checkclicked(){
   $html = $html+'<a role="menuitem" tabindex="1" href="#">' + $(this).attr("alt")+'</a>' ;
 });
 
-  $("#div_selected").html($html);
+  div_selected_tmp.html($html);
 }
     </script>
 
@@ -150,14 +162,8 @@ function checkclicked(){
 
 
 
-   $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
-   $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
-
-   $('#hilightlink').mouseover(function(e) {
-            $('#square2').mouseover();
-        }).mouseout(function(e) {
-            $('#square2').mouseout();
-        }).click(function(e) { e.preventDefault(); });
+   $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
+   $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});;
 
         $( document ).ready(function() {
         starttimer();
