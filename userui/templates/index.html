@@ -20,33 +20,16 @@
               </div>
               <div class="panel-body">
                 <ul>
-                {%if trials %}
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Trial Num</th>
-                  <th>Trial txt</th>
-                  <th>point A</th>
-                  <th>point B</th>
-                  <th>blockId</th>
-                  <th>order</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {%for trail in trials%}
-                <tr>
-                  <td>{{trail.id}}</td>
-                  <td>{{trail.trialNumber}}</td>
-                  <td>{{trail.pointA}}</td>
-                  <td>{{trail.pointB}}</td>
-                  <td>{{trail.blockId}}</td>
-                  <td>{{trail.order}}</td>
-                </tr>
-                  {% endfor %}
-              </tbody>
-            </table>
-            {% endif %}
+                  <li>Goal of the study: checking which technique of map representation is more efficient and user friendly.</li>
+                  <br>
+                  <li>This study consists of a some tasks regarding different techniques of the map presentations.&nbsp;In total, participation should take less than 1 hour 30 minutes.</li>
+                  <br>
+                  <li>You are free to refrain from participation now or at any point during the survey. If you feel uncomfortable or do not wish to continue participation, simply close the browser window. Furthermore, you can decide to cancel your permission to use your data until 24 hours after completion of the survey. You are not obliged to inform us about your reasons to do so. If you decide to refrain from participation during or after the survey, your data will be deleted from our files. Given, that the data will be fully anonymized, it is impossible to do so at a later stage</li>
+                  <br>
+                  <li>Participation in this study is strictly anonymous. The data from this survey will only be used by the researcher students. No personal information will be used.</li>
+                  <br>
+                  <li>If you would like to obtain more information about this study or if you have a complaint, you can contact Dr. Abouelsaadat, Wael (email: wael.abouelsaadat@guc.edu.eg) or to the student Mahmoud Osman (email: mahmoud.osman@student.guc.edu.eg) or Beshoy Atef (email: beshoy.zarif@student.guc.edu.eg)</li>
+                  
                 </ul>
               </div>
             </div>
@@ -54,3 +37,4 @@
 
   </form>
 {% endblock %}
+

@@ -71,6 +71,7 @@ class Trial(models.Model):
     blockId = models.IntegerField(default = 0)
     order = models.IntegerField(default=0)
     technique =  models.IntegerField(default=0)
+    task = models.IntegerField(default=0)
 
     def __unicode__(self):
         # return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
