@@ -1,0 +1,16 @@
+   function Zoom(amount) {
+      // resize image
+      var image = document.getElementById('image');
+      image.height = image.height * amount;
+
+      // resize image map
+      var map = document.getElementById('map');
+      for (var i = 0; i < map.areas.length; i++) {
+        var area = map.areas[i];
+        var coords = area.coords.split(',');
+        for (var j = 0; j < coords.length; j++) {
+          coords[j] = coords[j] * amount;
+        }
+        area.coords = coords[0] + ',' + coords[1] + ',' + coords[2] + ',' + 13;
+      }
+    }

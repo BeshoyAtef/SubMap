@@ -1,0 +1,727 @@
+{# THIS IFLE IS USELESS M JST KEPT AS A SAVING POINT
+ #}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block nav_form %}
+                <ul class="nav navbar-nav navbar-right">
+                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
+                    {% csrf_token %}
+                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="{{trial.task_text}}" role="button" data-original-title="A Title">Instructions</a>
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="answer" placeholder="Answer">
+                    </div>
+                    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                    <div class="btn-group">
+                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                        Selected Items <span id="count_selected"></span>
+                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" >
+                        <li role="presentation" class="disabled" id="div_selected">
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+                </ul>
+
+{% endblock %}
+
+{% block content%}
+
+
+  <!-- <div>
+    <div> </div>
+    <div style="float:left; width:500px; backgroud: RED"> </div>
+    <div> </div>  
+  </div> -->
+  <style type="text/css">
+
+    .col-md-2{
+      background-color: gray
+      }
+      .zoomContainer{
+        z-index: -1;
+        }</style>
+  <div class="row">
+            <div class="">
+          <a class="">
+        </a>
+      </div>
+    <a class="">
+        <div class="">
+          {# <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800" height="1842"  style="float:left;" border="0" usemap="#map"> #}
+
+          <img id="zoom_02" src="{% static "img/usedStreetMapFinal.jpg" %}"  width="1000"  data-zoom-image='{% static "img/usedStreetMapFinal.jpg" %}' border="0" usemap="#map2" />
+
+          <map name="map">
+          <!-- #$-:Image map file created by GIMP Image Map plug-in -->
+          <!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+          <!-- #$-:Please do not edit lines starting with "#$" -->
+          <!-- #$VERSION:2.3 -->
+          <!-- #$AUTHOR:Beshoy -->
+
+          <area shape="circle" class="star"  class="star" coords="207,1311,10" alt="14 st "  href="#" 
+          data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'
+           />
+          <area shape="circle" class="star"  coords="202,1258,8" alt="23 st"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="202,1192,8" alt="34 st penn station"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="202,1144,8" alt="42 st port authority"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="201,1097,8" alt="50 st"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="204,1027,8" alt="59 st columbus circle"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="288,1069,10" alt="55 st/7 Av"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="461,1067,8" alt="5 Av/ 53st"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="523,1067,8" alt="51 st/4 Av"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="204,913,8" alt="72 St(B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="204,857,9" alt="81 st museum of natural history (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="206,822,7" alt="86 St (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="203,771,8" alt="96 St (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="202,717,7" alt="103 St (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="204,658,8" alt="110 st (B-C) Cathedral Pkwy"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="205,621,8" alt="116 St (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="205,579,8" alt="125 St (A-B-C-D)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="203,538,8" alt="135 St (B-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="203,483,10" alt="145 St (A-B-C-D)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="191,421,7" alt="155 St (C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="153,373,8" alt="163 St- Amesterdam Av (C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="128,344,8" alt="168 St (A-C-1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="93,298,8" alt="175 St (A)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="76,246,8" alt="181 St (A)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="83,209,9" alt="190 St (A)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="105,168,8" alt="Dyckman St (A)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="139,128,8" alt="Inwood 207 St (A)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="385,1393,8" alt="W 4 St Wash Sq (A-B-C-D-E-F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="387,1476,7" alt="Spring St (C-E)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="388,1515,9" alt="Canal St (A-C-E)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="394,1577,8" alt="Chambers St (A-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="498,1656,8" alt="Fulton St (A-C)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="660,1519,9" alt="East Broadway (F)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="645,1487,12" alt="Delancey St (F-J-M-Z)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="595,1444,8" alt="2 Av (F)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="569,1492,8" alt="Bowery (J-Z)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="528,1579,8" alt="Chambers St (J-Z)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="497,1737,8" alt="Broad St (J-Z)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="590,1511,8" alt="Grand St (B-D)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="368,1720,7" alt="Rector St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="365,1577,8" alt="Chambers St (1-2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="360,1541,8" alt="Franklin St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="355,1509,7" alt="Canal St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="334,1454,7" alt="HUston St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="306,1389,10" alt="Christopher St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="414,1721,10" alt="Rector St (R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="420,1675,8" alt="Cortlandt St (R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="460,1589,8" alt="Park Place (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="481,1518,9" alt="Canal St (J-N-Q-R-Z-6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="488,1459,9" alt="Prince St (N-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="506,1444,9" alt="B&apos;way-Lafayette St (B-D-F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="515,1476,8" alt="Spring St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="467,1706,9" alt="Wall St (4-5)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="300,1320,9" alt="14 St (1-2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="456,1783,10" alt="Bowling Green (4-5)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="397,1636,7" alt="World trade center (E)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="489,1344,9" alt="8 St (N-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="385,1312,9" alt="14 St (F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="519,1706,9" alt="Wall St (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="459,1260,9" alt="23 St (N-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="425,1227,8" alt="28 St (N-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="491,1258,8" alt="23 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="491,1310,15" alt="14 St- union Sq (L-N-Q-R-4-5-6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="300,1256,9" alt="23 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="386,1255,7" alt="23 St (F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="385,1195,10" alt="34 St Herald Sq (B-D-F-M-N-Q-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="492,1198,8" alt="33 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="489,1225,7" alt="28 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="299,1191,10" alt="34 Penn Station (1-2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="305,1141,12" alt="42 St times square (N-Q-R-S-1-2-3-7)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="387,1152,8" alt="42 St Bryant Pk (B-D-F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="386,1107,9" alt="47-50 St Rockefeller center (B-D-F-M)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="299,1035,8" alt="57 St-7 Av (N-Q-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="386,1038,7" alt="57 St (F)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="473,1016,8" alt="59 St/5 Av (N-Q-R)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="509,1023,10" alt="59 St (4-5-6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="165,961,9" alt="66 St Lincoln center (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="149,913,9" alt="72 St (1-2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="140,867,9" alt="79 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="140,822,8" alt="86 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="141,772,11" alt="96 St (1-2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="510,946,7" alt="68 St Hunter College (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="511,889,6" alt="77 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="508,818,10" alt="86 St (4-5-6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="510,765,7" alt="96 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="510,723,9" alt="103 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="509,660,10" alt="110 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="508,620,7" alt="116 St (6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="510,582,9" alt="125 St (4-5-6)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="141,719,8" alt="103 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="134,658,7" alt="Cathedral Pkwy (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="127,619,7" alt="116 St Columbia University (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="128,572,8" alt="125 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="128,529,9" alt="137 St City College (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="130,485,9" alt="145 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="129,413,7" alt="157 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="243,423,9" alt="156 St (B-D)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="375,661,8" alt="central park north (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="374,621,8" alt="116 St (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="376,583,8" alt="125 St (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="375,537,10" alt="135 St (2-3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="375,484,8" alt="145 St (3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="316,460,8" alt="148 St Harlem (3)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="131,246,10" alt="181 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="139,200,8" alt="191 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="146,169,8" alt="Dyckman St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="166,128,8" alt="207 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          <area shape="circle" class="star"  coords="184,88,9" alt="215 St (1)"  href="#" data-maphilight='{"strokeColor":"0000ff"
+
+,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.6}'  />
+          </map>
+
+<map name="map2" id="map_cord">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:User -->
+<area shape="circle" coords="381.44,2319.36,7.68,undefined" alt="14 St (A-C-E)" href="sun.htm">
+<area shape="circle" coords="385.28000000000003,2204.8,7.04,undefined" alt="23 St (C-E)" href="sun.htm">
+<area shape="circle" coords="382.08,2061.44,7.04,undefined" alt="34 St penn station (A-C-E)" href="sun.htm">
+<area shape="circle" coords="381.44,1948.16,7.04,undefined" alt="42 St port authority (A-C-E)" href="sun.htm">
+<area shape="circle" coords="379.52,1831.68,6.4,undefined" alt="50 St (C-E)" href="sun.htm">
+<area shape="circle" coords="378.88,1701.1200000000001,7.04,undefined" alt="59 St columbus circle (A-B-C-D-1)" href="sun.htm">
+<area shape="circle" coords="432.64,1792.64,5.76,undefined" alt="57 St/7 Av (B-E-D)" href="sun.htm">
+<area shape="circle" coords="541.44,1792.64,7.04,undefined" alt="5 Av/ 53 St (E-M) " href="sun.htm">
+<area shape="circle" coords="613.76,1820.16,6.4,undefined" alt="51 St (6)" href="sun.htm">
+<area shape="circle" coords="376.32,1536,7.68,undefined" alt="72 St(B-C)" href="sun.htm">
+<area shape="circle" coords="377.6,1396.48,7.04,undefined" alt="81 St museum of natural history (B-C)" href="sun.htm">
+<area shape="circle" coords="372.48,1305.6000000000001,7.04,undefined" alt="86 St (B-C)" href="sun.htm">
+<area shape="circle" coords="371.84000000000003,1175.68,6.4,undefined" alt="96 St (B-C)" href="sun.htm">
+<area shape="circle" coords="370.56,1075.2,7.04,undefined" alt="103 St (B-C)" href="sun.htm">
+<area shape="circle" coords="369.28000000000003,974.08,7.04,undefined" alt="110 St (B-C) Cathedral Pkwy" href="sun.htm">
+<area shape="circle" coords="466.56,952.96,7.04,undefined" alt="central park north (2-3)" href="sun.htm">
+<area shape="circle" coords="368,872.96,7.04,undefined" alt="116 St (B-C)" href="sun.htm">
+<area shape="circle" coords="342.40000000000003,750.72,7.68,undefined" alt="125 St (A-B-C-D)" href="sun.htm">
+<area shape="circle" coords="336.64,599.6800000000001,7.04,undefined" alt="135 St (B-C)" href="sun.htm">
+<area shape="circle" coords="314.24,456.96000000000004,7.04,undefined" alt="145 St (A-B-C-D)" href="sun.htm">
+<area shape="circle" coords="293.76,338.56,6.4,undefined" alt="155 St (C)" href="sun.htm">
+<area shape="circle" coords="261.12,231.68,6.4,undefined" alt="163 St- Amesterdam Av (C)" href="sun.htm">
+<area shape="circle" coords="219.52,149.12,5.12,undefined" alt="168 St (A-C-1)" href="sun.htm">
+<area shape="circle" coords="152.32,35.84,5.76,undefined" alt="175 St (A)" href="sun.htm">
+<area shape="circle" coords="484.48,2454.4,6.4,undefined" alt="W 4 St Wash Sq (A-B-C-D-E-F-M)" href="sun.htm">
+<area shape="circle" coords="502.40000000000003,2583.04,7.04,undefined" alt="Spring St (C-E)" href="sun.htm">
+<area shape="circle" coords="535.6800000000001,2686.08,6.4,undefined" alt="Canal St (A-C-E)" href="sun.htm">
+<area shape="circle" coords="557.44,2826.2400000000002,7.04,undefined" alt="Chambers St (A-C)" href="sun.htm">
+<area shape="circle" coords="628.48,2892.16,5.12,undefined" alt="Fulton St (2-3)" nohref="nohref">
+<area shape="circle" coords="606.08,2887.68,7.04,undefined" alt="Fulton St (J)" nohref="nohref">
+<area shape="circle" coords="581.76,2897.28,5.76,undefined" alt="Fulton St (A-C)" nohref="nohref">
+<area shape="circle" coords="799.36,2696.96,7.04,undefined" alt="East Broadway (F)" href="sun.htm">
+<area shape="circle" coords="784,2600.32,12.8,undefined" alt="Delancey St (F-J-M-Z)" href="sun.htm">
+<area shape="circle" coords="708.48,2529.28,7.04,undefined" alt="2 Av (F)" href="sun.htm">
+<area shape="circle" coords="687.36,2612.48,7.04,undefined" alt="Bowery (J-Z)" href="sun.htm">
+<area shape="circle" coords="632.96,2801.92,7.04,undefined" alt="Chambers St (J-Z)" href="sun.htm">
+<area shape="circle" coords="599.6800000000001,2974.7200000000003,5.76,undefined" alt="Broad St (J-Z)" href="sun.htm">
+<area shape="circle" coords="709.12,2645.76,6.4,undefined" alt="Grand St (B-D)" href="sun.htm">
+<area shape="circle" coords="556.8000000000001,2980.48,7.68,undefined" alt="Rector St (1)" href="sun.htm">
+<area shape="circle" coords="535.04,2807.04,7.04,undefined" alt="Chambers St (1-2-3)" href="sun.htm">
+<area shape="circle" coords="528,2723.84,6.4,undefined" alt="Franklin St (1)" href="sun.htm">
+<area shape="circle" coords="501.76,2659.2000000000003,6.4,undefined" alt="Canal St (1)" href="sun.htm">
+<area shape="circle" coords="460.8,2560,6.4,undefined" alt="Huston St (1)" href="sun.htm">
+<area shape="circle" coords="442.88,2453.76,5.76,undefined" alt="Christopher St (1)" href="sun.htm">
+<area shape="circle" coords="558.08,2901.76,4.48,undefined" alt="Cortlandt St (R)" href="sun.htm">
+<area shape="circle" coords="564.48,2845.44,6.4,undefined" alt="Park Place (2-3)" href="sun.htm">
+<area shape="circle" coords="624.64,2689.28,10.88,undefined" alt="Canal St (J-N-Q-R-Z-6)" href="sun.htm">
+<area shape="circle" coords="599.04,2570.2400000000002,6.4,undefined" alt="Prince St (N-R)" href="sun.htm">
+<area shape="circle" coords="609.28,2543.36,6.4,undefined" alt="Bway-Lafayette St (B-D-F-M)" href="sun.htm">
+<area shape="circle" coords="626.5600000000001,2602.2400000000002,6.4,undefined" alt="Spring St (6)" href="sun.htm">
+<area shape="circle" coords="578.5600000000001,2961.28,4.48,undefined" alt="Wall St (4-5)" href="sun.htm">
+<area shape="circle" coords="434.56,2357.76,5.76,undefined" alt="14 St (1-2-3)" href="sun.htm">
+<area shape="circle" coords="576.64,3025.92,7.04,undefined" alt="Bowling Green (4-5)" href="sun.htm">
+<area shape="circle" coords="556.16,2861.44,5.12,undefined" alt="World trade center (E)" href="sun.htm">
+<area shape="circle" coords="606.72,2430.08,4.48,undefined" alt="8 St - NYU (N-R)" href="sun.htm">
+<area shape="circle" coords="482.56,2322.56,5.76,undefined" alt="14 St (F-M)" href="sun.htm">
+<area shape="circle" coords="620.8000000000001,2953.6,5.76,undefined" alt="Wall St (2-3)" href="sun.htm">
+<area shape="circle" coords="535.6800000000001,2216.32,4.48,undefined" alt="23 St (N-R)" href="sun.htm">
+<area shape="circle" coords="510.08,2141.44,5.12,undefined" alt="28 St (N-R)" href="sun.htm">
+<area shape="circle" coords="591.36,2223.36,5.12,undefined" alt="23 St (6)" href="sun.htm">
+<area shape="circle" coords="593.28,2337.92,10.24,undefined" alt="14 St- union Sq (L-N-Q-R-4-5-6)" href="sun.htm">
+<area shape="circle" coords="433.28000000000003,2216.96,5.76,undefined" alt="23 St (1)" href="sun.htm">
+<area shape="circle" coords="483.2,2216.96,5.12,undefined" alt="23 St (F-M)" href="sun.htm">
+<area shape="circle" coords="479.36,2064,5.76,undefined" alt="34 St Herald Sq (B-D-F-M-N-Q-R)" href="sun.htm">
+<area shape="circle" coords="590.72,2081.92,5.12,undefined" alt="33 St (6)" href="sun.htm">
+<area shape="circle" coords="591.36,2151.04,5.12,undefined" alt="28 St (6)" href="sun.htm">
+<area shape="circle" coords="431.36,2081.92,5.12,undefined" alt="34 Penn Station (1-2-3)" href="sun.htm">
+<area shape="circle" coords="434.56,1955.2,9.6,undefined" alt="42 St times square (N-Q-R-S-1-2-3-7)" href="sun.htm">
+<area shape="circle" coords="478.72,1962.24,6.4,undefined" alt="42 St Bryant Pk (B-D-F-M)" href="sun.htm">
+<area shape="circle" coords="476.8,1862.4,5.76,undefined" alt="47-50 St Rockefeller center (B-D-F-M)" href="sun.htm">
+<area shape="circle" coords="428.16,1754.24,5.76,undefined" alt="57 St-7 Av (N-Q-R)" href="sun.htm">
+<area shape="circle" coords="476.16,1744,7.04,undefined" alt="57 St (F)" href="sun.htm">
+<area shape="circle" coords="520.96,1698.56,5.76,undefined" alt=" 59 St/5 Av (N-Q-R)" href="sun.htm">
+<area shape="circle" coords="613.12,1697.92,5.12,undefined" alt="59 St (4-5-6)" href="sun.htm">
+<area shape="circle" coords="321.92,1615.3600000000001,6.4,undefined" alt="66 St Lincoln center (1)" href="sun.htm">
+<area shape="circle" coords="275.84000000000003,1528.32,4.48,undefined" alt="72 St (1-2-3)" href="sun.htm">
+<area shape="circle" coords="248.96,1418.24,5.12,undefined" alt="79 St (1)" href="sun.htm">
+<area shape="circle" coords="250.88,1311.3600000000001,4.48,undefined" alt="86 St (1)" href="sun.htm">
+<area shape="circle" coords="254.08,1182.72,4.48,undefined" alt="96 St (1-2-3)" href="sun.htm">
+<area shape="circle" coords="611.2,1571.8400000000001,4.48,undefined" alt="68 St Hunter College (6)" href="sun.htm">
+<area shape="circle" coords="610.5600000000001,1447.68,5.76,undefined" alt="77 St (6)" href="sun.htm">
+<area shape="circle" coords="606.08,1315.84,5.12,undefined" alt="86 St (4-5-6)" href="sun.htm">
+<area shape="circle" coords="606.72,1175.04,5.76,undefined" alt="96 St (6)" href="sun.htm">
+<area shape="circle" coords="605.44,1065.6,5.76,undefined" alt="103 St (6)" href="sun.htm">
+<area shape="circle" coords="602.88,967.6800000000001,5.12,undefined" alt="110 St (6)" href="sun.htm">
+<area shape="circle" coords="603.52,884.48,7.04,undefined" alt="116 St (6)" href="sun.htm">
+<area shape="circle" coords="596.48,766.08,5.12,undefined" alt="125 St (4-5-6)" href="sun.htm">
+<area shape="circle" coords="248.32,1067.52,5.76,undefined" alt="103 St (1)" href="sun.htm">
+<area shape="circle" coords="224,979.2,6.4,undefined" alt="Cathedral Pkwy (1)" href="sun.htm">
+<area shape="circle" coords="222.08,896,4.48,undefined" alt="116 St Columbia University (1)" href="sun.htm">
+<area shape="circle" coords="220.8,719.36,5.12,undefined" alt="125 St (1)" href="sun.htm">
+<area shape="circle" coords="229.76,572.8000000000001,5.76,undefined" alt="137 St City College (1)" href="sun.htm">
+<area shape="circle" coords="218.24,468.48,4.48,undefined" alt="145 St (1)" href="sun.htm">
+<area shape="circle" coords="226.56,302.72,5.12,undefined" alt="157 St (1)" href="sun.htm">
+<area shape="circle" coords="338.56,321.28000000000003,5.76,undefined" alt="155 St (B-D)" href="sun.htm">
+<area shape="circle" coords="465.28000000000003,885.12,5.76,undefined" alt="116 St (2-3)" href="sun.htm">
+<area shape="circle" coords="459.52,760.96,5.12,undefined" alt="125 St (2-3)" href="sun.htm">
+<area shape="circle" coords="461.44,611.84,4.48,undefined" alt="135 St (2-3)" href="sun.htm">
+<area shape="circle" coords="460.16,472.96000000000004,5.12,undefined" alt="145 St (3)" href="sun.htm">
+<area shape="circle" coords="426.24,415.36,5.12,undefined" alt="148 St Harlem (3)" href="sun.htm">
+<area shape="circle" coords="666.24,2339.84,7.04,undefined" alt="3 Av (L)" nohref="nohref">
+<area shape="circle" coords="742.4,2338.56,3.84,undefined" alt="1 Av (L)" nohref="nohref">
+<area shape="circle" coords="384.64,2343.04,7.68,undefined" alt="8 Av (L)" nohref="nohref">
+<area shape="circle" coords="629.12,2424.32,5.12,undefined" alt="Astor PI (6)" nohref="nohref">
+<area shape="circle" coords="619.52,1690.88,5.76,undefined" alt="Lexington Av/59 St (N-Q-R)" nohref="nohref">
+<area shape="circle" coords="616.96,1646.72,5.76,undefined" alt="Lexington Av/ 63 St (F)" nohref="nohref">
+
+<!-- the points -->
+<!-- stand alone points -->
+<area shape="circle" coords="639.36,2272,4.48,undefined" alt="GRAMERCY PARK" class="gramercy" href="sun.htm">
+<area shape="circle" coords="729.6,2095.36,5.12,undefined" alt="NYU SCHOOL OF MEDICINE" class="med" href="sun.htm">
+<area shape="circle" coords="229.12,2213.12,5.12,undefined" alt="CHELSEA WATERSIDE PARK" class="chelsea" href="sun.htm">
+<area shape="circle" coords="518.4,1374.72,5.12,undefined" alt="THE METROPOLITIAN MUSEUM OF ART" class="metropolitian" href="sun.htm">
+<area shape="circle" coords="684.16,2899.2000000000003,6.4,undefined" alt="TITANIC MEMORIAL PARK" class="titanic" href="sun.htm">
+<area shape="circle" coords="730.88,2381.44,5.76,undefined" alt="ISLAMIC COUNCIL OF AMERICA" class="islam" href="sun.htm"> 
+<area shape="circle" coords="165.12,829.44,5.76,undefined" alt="RIVERSIDE PARK TENNIS COURT" class="tennis" href="sun.htm">
+<area shape="circle" coords="449.28000000000003,1331.84,5.76,undefined" alt="CENTRAL PARK" class="park" href="sun.htm">
+<area shape="circle" coords="531.2,1280.64,7.04,undefined" alt="SOLOMON R.GUGGENHEIM MUSEUM" class="guggenheim" href="sun.htm">
+<area shape="circle" coords="622.72,696.96,5.12,undefined" alt="HARLEM RIVER PARK" class="harlemPark" href="sun.htm">
+<area shape="circle" coords="427.52,572.8000000000001,6.4,undefined" alt="THE ABYSSINIAN BAPTIST CHURCH" class="church" href="sun.htm">
+<area shape="circle" coords="264.96,499.84000000000003,7.04,undefined" alt="JOHNNY HARTMAN PLAZA" class="plaza" href="sun.htm">
+<area shape="circle" coords="286.72,919.04,7.04,undefined" alt="ST LUKE ROOSEVELT HOSPITAL" class="hos" href="sun.htm">
+<area shape="circle" coords="685.44,987.52,5.12,undefined" alt="NEIGHBORS OF VEGAA BAJA" class="baja" href="sun.htm">
+<area shape="circle" coords="644.48,2442.88,6.4,undefined" alt="COOPER SQUARE" class="cooper" href="sun.htm">
+
+<!-- points A&B -->
+<!-- they are in doubles the first one is the A point, the second on is the B point -->
+<area shape="circle" coords="97.92,342.40000000000003,6.4,undefined" alt="TRINITY CEMETERY" class="trini" nohref="nohref">
+<area shape="circle" coords="478.08,1150.08,8.96,undefined" alt="E 97 ST" class="E" nohref="nohref">
+<area shape="circle" coords="470.40000000000003,2920.32,8.96,undefined" alt="ZUCCOTTI PARK" class="zu" nohref="nohref">
+<area shape="circle" coords="521.6,2729.6,7.68,undefined" alt="COLLECT POND PARK" class="collect" nohref="nohref">
+<area shape="circle" coords="177.92000000000002,1706.24,8.32,undefined" alt="JOHN JAY COLLEGE OF CRIMINAL JUSTICE" class="just" nohref="nohref">
+<area shape="circle" coords="672.64,1609.6000000000001,7.04,undefined" alt="THE ROCKEFELLER UNIVERSITY" class="uni" nohref="nohref">
+<area shape="circle" coords="610.5600000000001,2032,8.96,undefined" alt="ST VARTAN PARK" class="stvartan" nohref="nohref">
+<area shape="circle" coords="166.4,2056.96,11.52,undefined" alt="W 34 ST/ 10 AVE" class="street" nohref="nohref">
+<area shape="circle" coords="679.6800000000001,2183.68,8.32,undefined" alt="NEW YORK SKYPORT" class="sky" nohref="nohref">
+<area shape="circle" coords="180.48,1098.24,9.6,undefined" alt="FREDRICH DOUGLUS PLAYGROUND" class="play" nohref="nohref">
+<area shape="circle" coords="192,2305.28,8.32,undefined" alt="W 16 ST/ 10 AVE" class="st2" nohref="nohref">
+<area shape="circle" coords="299.52,2350.08,8.32,undefined" alt="meat packing district" class="meat" nohref="nohref">
+<area shape="circle" coords="99.2,963.2,8.32,undefined" alt="CATHEDRAL PKWAY" class="st3" nohref="nohref">
+<area shape="circle" coords="548.48,764.16,7.68,undefined" alt="DREAM STREET PARK" class="dream" nohref="nohref">
+<area shape="circle" coords="83.84,1888,7.68,undefined" alt="SEA,AIR,SPACE MUSEUM" class="sea" nohref="nohref">
+<area shape="circle" coords="415.36,1365.1200000000001,11.52,undefined" alt="METROPOLITAN MUSEUM" class="metropolitian" nohref="nohref">
+<area shape="circle" coords="346.24,1324.8,10.24,undefined" alt="CENTERAL PARK" class="park" nohref="nohref">
+<area shape="circle" coords="332.16,762.88,9.6,undefined" alt="STUDIO MUSEUM IN HARLEM" class="stu" nohref="nohref">
+<area shape="circle" coords="245.12,444.16,7.04,undefined" alt="JACKIE ROBINSON PARK" class="jack" nohref="nohref">
+<area shape="circle" coords="297.6,1383.68,10.88,undefined" alt="MUSEUM OF NATURAL HISTORY" class="muse" nohref="nohref">
+<area shape="circle" coords="398.72,1011.2,7.68,undefined" alt="FORT CLINTON" class="fort" nohref="nohref">
+<area shape="circle" coords="359.68,1880.32,7.68,undefined" alt="ROCKEFELLER CENTER" class="rock" nohref="nohref">
+<area shape="circle" coords="654.08,2664.96,8.32,undefined" alt="little italy" class="lit" nohref="nohref">
+<area shape="circle" coords="542.72,2593.92,8.96,undefined" alt="DESALVIO PLAYGROUND" class="paly1" nohref="nohref">
+<area shape="circle" coords="344.32,2586.88,11.52,undefined" alt="HUDSON SQUARE" class="hud" nohref="nohref">
+<area shape="circle" coords="853.12,2654.7200000000003,10.88,undefined" alt="CORLEARS HOOK PARK" class="cor" nohref="nohref">
+<area shape="circle" coords="684.8000000000001,2408.32,7.04,undefined" alt="tompkins square park" class="tom" nohref="nohref">
+<area shape="circle" coords="295.68,2056.96,10.24,undefined" alt="34-penn station" class="penn" nohref="nohref">
+<area shape="circle" coords="497.92,2943.36,8.32,undefined" alt="WALL STREET" class="wall" nohref="nohref">
+<area shape="circle" coords="703.36,2654.08,16,undefined" alt="SEWARD PARK" class="sew" nohref="nohref">
+</map>
+
+        </div>
+    </a>
+
+    <div class="btn-group-vertical col-md-2" style="background-color: white">
+      <a id="hilightlink" href="#">Mouse over this to trigger a hilight from an external element!</a>
+    </div>
+
+</div>
+
+
+  </div>
+  <div style="
+position: fixed;
+left: 0;
+bottom: 0;
+height: 200px;
+width: 300px;
+
+opacity: 0.4;" id="demo-container">
+<div style="opacity:1;color: black;">
+</div>
+</div>
+
+  <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+            <div class="col-md-3"  style="background-color: blue">.col-md-1</div>
+            <div class="col-md-7" style="background-color: yellow">.col-md-1</div>
+            <div class="col-md-2" >.col-md-1</div>
+        </div>
+
+              </div>
+  
+              </div>
+            </div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static "js/jquery.elevatezoom.js" %}"></script>
+<script src="{% static "js/jquery.maphilight.min.js" %}"></script>
+    <script>$(function() {
+        $('.map').maphilight({
+            fillColor: '008800'
+        });
+        $('.star').click(function(e) {
+            e.preventDefault();
+            var data = $(this).mouseout().data('maphilight') || {};
+            data.alwaysOn = !data.alwaysOn;
+            $(this).data('maphilight', data).trigger('alwaysOn.maphilight');
+            $(this).toggleClass("clicked");
+            checkclicked();
+        });
+    });
+function checkclicked(){
+  $("#div_selected").html("");
+
+  var $html =""
+  var $clicked_items=$( ".clicked" );
+  $clicked_items.each(function() {
+  $("#count_selected").html("("+$clicked_items.length+")")
+  $html = $html+'<a role="menuitem" tabindex="1" href="#">' + $(this).attr("alt")+'</a>' ;
+});
+
+  $("#div_selected").html($html);
+}
+    </script>
+
+  <script>
+
+
+
+   $('#zoom_01').maphilight();
+   $('#zoom_02').maphilight();
+
+   $('#hilightlink').mouseover(function(e) {
+            $('#square2').mouseover();
+        }).mouseout(function(e) {
+            $('#square2').mouseout();
+        }).click(function(e) { e.preventDefault(); });
+
+        $( document ).ready(function() {
+        starttimer();
+    });
+        var coords = [];
+        [].forEach.call(document.querySelectorAll("area"), function (value, index, array) {
+            coords.push(value.getAttribute("coords").split(","));
+        });
+
+        console.log(coords);
+
+
+        var IE = document.all?true:false
+
+        // If NS -- that is, !IE -- then set up for mouse capture
+        if (!IE) document.captureEvents(Event.MOUSEMOVE)
+
+        document.onmousemove = getMouseXY;
+
+
+        // Temporary variables to hold mouse x-y pos.s
+        var tempX = 0
+        var tempY = 0
+
+        // Main function to retrieve mouse x-y pos.s
+
+        function getMouseXY(e) {
+          if (IE) { // grab the x-y pos.s if browser is IE
+            tempX = event.clientX + document.body.scrollLeft
+            tempY = event.clientY + document.body.scrollTop
+          } else {  // grab the x-y pos.s if browser is NS
+            tempX = e.pageX
+            tempY = e.pageY
+
+            tempXplus = tempX+50
+            tempYplus = tempY+50
+            for (var i = 0; i < coords.length; i++) {
+              pointTemp=coords[i]
+              distTemp =
+                Math.sqrt(
+                  ((pointTemp[0] - tempX)*(pointTemp[0] - tempX))+ 
+                  ((pointTemp[1] - tempY)*(pointTemp[1] - tempY))
+                  );
+                
+                if(distTemp<30){
+                console.log(distTemp+":SHow");
+
+                  //alert(distTemp);
+                  var txtTmp=""+pointTemp[0]+","+pointTemp[1]+","+pointTemp[2]
+                 
+                  //$('[coords|=' +"'"+ txtTmp +"'" + ']').mouseover();
+                }
+                //if (coords[i].[0])
+                // alert(coords[i]);
+                //Do something
+            }
+
+          }  
+          // catch possible negative values in NS4
+          if (tempX < 0){tempX = 0}
+          if (tempY < 0){tempY = 0}  
+          // show the position values in the form named Show
+          // in the text fields named MouseX and MouseY
+
+          $('#x').val(tempX)
+          $('#y').val(tempY)
+          return true
+        }
+    //  $("#zoom_01").elevateZoom({
+    //        zoomWindowPosition: "demo-container", 
+    //        zoomWindowWidth:400,
+    //        zoomWindowHeight:200,
+    //        scrollZoom : true,
+           
+    //  });    
+    // $("#zoom_02").elevateZoom({
+    //       zoomWindowPosition: "demo-container", 
+    //       zoomWindowWidth:400,
+    //       zoomWindowHeight:200,
+    //       scrollZoom : true,
+          
+    // }); 
+
+</script>
+{% endblock %}
