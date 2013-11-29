@@ -50,8 +50,10 @@
       </div>
     <a class="">
         <div class="">
-          <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800" height="1842"  style="float:left;" border="0" usemap="#map">
-          <img id="zoom_02" src='{% static "img/ManMap.png" %}' style="margin-left:100px" width="800">
+
+          {# <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800" height="1842"  style="float:left;" border="0" usemap="#map"> #}
+
+          <img id="zoom_02" src='{% static "img/usedStreetMapFinal.jpg" %}' usemap="#map2" width="1000">
           {% include "metropoints.html" %}
           {% include "citypoints.html" %}
         </div>
@@ -131,6 +133,8 @@ function checkclicked(){
 
 
    $('#zoom_01').maphilight();
+   $('#zoom_02').maphilight();
+
    $('#hilightlink').mouseover(function(e) {
             $('#square2').mouseover();
         }).mouseout(function(e) {

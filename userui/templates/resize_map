@@ -11,6 +11,6 @@
         for (var j = 0; j < coords.length; j++) {
           coords[j] = coords[j] * amount;
         }
-        area.coords = coords[0] + ',' + coords[1] + ',' + coords[2] + ',' + 13;
+        area.coords = coords[0] + ',' + coords[1] + ',' + coords[2]*1.5;
       }
     }
