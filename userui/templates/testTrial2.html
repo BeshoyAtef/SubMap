@@ -139,7 +139,8 @@ opacity: 0.4;" id="demo-container2">
 
     function mapChange(id)
     {
-        $(".maps").fadeOut("slow",function(){$("#"+id).fadeIn("slow");});
+        $(".maps").fadeOut({duration:1000});
+        $("#"+id).delay(1000).fadeIn({duration:1000});
         
             $("#zoom_0"+id).elevateZoom({
                       zoomWindowPosition: "demo-container", 
