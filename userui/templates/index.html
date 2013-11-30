@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block nav_form %}
+                <ul class="nav navbar-nav navbar-right">
+                  <form class="navbar-form navbar-left" >
+                    <a href="/c/" class="btn btn-success">Color Test</a>
+                  </form>
+                </ul>
+
+{% endblock %}
+{% block body_tag %}
+<body>
+ {% endblock %} 
 {% block content%}
    <center>
      <div> 
@@ -14,7 +25,7 @@
                 </div>
     </div>
   </center>
-  <div class="panel panel-info">
+  <div class="panel panel-info" style="width:70%;margin:auto">
               <div class="panel-heading">
                 <h3 class="panel-title">instructions</h3>
               </div>
@@ -33,7 +44,7 @@
                 </ul>
               </div>
             </div>
-            <button type="submit" style="margin-top:25px;" class="btn btn-success">Start</button>
+            <center><button type="submit" style="margin-top:25px;" class="btn btn-success">Start</button></center>
 
   </form>
 {% endblock %}
