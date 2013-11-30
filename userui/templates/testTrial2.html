@@ -2,6 +2,17 @@
 {% load staticfiles %}
 
 {% block nav_form %}
+<ul class="nav navbar-nav" >
+  <form class="navbar-form ">
+<div class="btn-toolbar" role="toolbar">
+<div class="btn-group col-md-offset-3 " style="position:fixed">
+  <button type="button" class="btn btn-success" onClick="mapChange('2');">City Map</button>
+  <button type="button" class="btn btn-success" onClick="mapChange('1');">Subway Map</button>
+</div>
+</div>
+</form>
+</ul>
+
                 <ul class="nav navbar-nav navbar-right">
                   <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
                     {% csrf_token %}
@@ -15,16 +26,16 @@
                     </div>
                     <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
                     <button type="submit" class="btn btn-success">Confirm</button>
-                    <div class="btn-group">
-                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-                        Selected Items <span id="count_selected"></span>
-                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" >
-                        <li role="presentation" class="disabled" id="div_selected">
-                        </li>
-                      </ul>
-                    </div>
+                      <div class="dropdown btn-group">
+                        <button href="#" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Selected Items<span id="count_selected"></span>
+                          <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                        </button>
+                        <ul role="presentation" class="dropdown-menu" id="div_selected">
+                        <li class="divider"></li>
+                        </ul>
+                      </div>
+
+
                   </form>
                 </ul>
 
@@ -36,33 +47,30 @@
     <div style="float:left; width:500px; backgroud: RED"> </div>
     <div> </div>  
   </div> -->
-  <style type="text/css">
 
-    .col-md-2{
-      background-color: gray
-      }</style>
+
+
 
   <div class="row" >
 
-        <div class="btn-group-vertical col-md-2  col-md-offset-10" style="background-color: white;position:fixed">
-          <button type="button" class="btn btn-default" onClick="mapChange('2');">City Map</button>
-          <button type="button" class="btn btn-default" onClick="mapChange('1');">Subway Map</button>
-        </div>
 
+<center>
         <div class="map_area">
 
 
             <div>
-              <div id="1"  style="display none" class="maps">
+              <div id="1"  style="display:none;" class="maps col-md-offset-3 ">
               <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800"   border="0" usemap="#map">
               </div>
-              <div id="2" style="" class="maps">
+              <div id="2" class="maps col-md-offset-3 ">
               <img id="zoom_02" src='{% static "img/smusedStreetMapFinal.jpg" %}' data-zoom-image='{% static "img/usedStreetMapFinal.jpg" %}' usemap="#map2" width="1000">
               </div>
-              {% include "metropoints.html" %}
-              {% include "citypoints.html" %}
+
             </div>
         </div>
+</center>
+        {% include "metropoints.html" %}
+        {% include "citypoints.html" %}
             
 
     <br>
@@ -107,6 +115,9 @@ opacity: 0.4;" id="demo-container2">
     display:none;
     color: white;
 }
+  .zoomContainer{
+    z-index: -1;
+    }
 </style>
 {% endblock %}
 
@@ -115,16 +126,21 @@ opacity: 0.4;" id="demo-container2">
   <script src="{% static "js/jquery.maphilight.min.js" %}"></script>
 
     <script type="text/javascript">
-    $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
-    $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});;
 
-         $( document ).ready(function() {
+
+
+     $( document ).ready(function() {
+
+      $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
+      $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
+
          starttimer();
-     }
+     });
+
     function mapChange(id)
     {
-        $(".maps").fadeOut();
-        $("#"+id).fadeIn();
+        $(".maps").fadeOut("slow",function(){$("#"+id).fadeIn("slow");});
+        
             $("#zoom_0"+id).elevateZoom({
                       zoomWindowPosition: "demo-container", 
                       zoomWindowWidth:400,
@@ -133,6 +149,7 @@ opacity: 0.4;" id="demo-container2">
                       
             });
     }
+
     $("#zoom_02").elevateZoom({
           zoomWindowPosition: "demo-container", 
           zoomWindowWidth:400,
@@ -140,6 +157,55 @@ opacity: 0.4;" id="demo-container2">
           scrollZoom : true,
           
     }); 
+    </script>
+        <script>
+    $(function() {
+
+
+      var area_tmp =  $('#map2_div area');
+      var classes = "";
+      var class_to_show = "";
+
+            area_tmp.click(function(e) {
+            e.preventDefault();
+            area_tmp.mouseout();
+            var data = $(this).mouseout().data('maphilight') || {};
+            data.alwaysOn = !data.alwaysOn;
+            $(this).data('maphilight', data).trigger('alwaysOn.maphilight');
+            $(this).toggleClass("clicked");
+            console.log($(this).attr('class'));
+            console.log($(this));
+           classes = $(this).attr('class');
+           class_to_show = classes.split(" ");
+           $("."+class_to_show).mouseover();
+           checkclicked();
+
+        });
+
+    });
+
+  function changeval(changed){
+    $("#answer_inp").val(changed);
+
+  }
+
+function checkclicked(){
+  var div_selected_tmp = $("#div_selected");
+ div_selected_tmp.html("");
+
+  var $html =""
+  var $clicked_items=$( ".clicked" );
+  $clicked_items.each(function() {
+  $("#count_selected").html("("+$clicked_items.length+")")
+  var $tmp_alt = $(this).attr("alt");
+  $html = $html+'<li role="presentation"><a role="menuitem" class="selected_itms" value=0 tabindex="1"  onClick="changeval(\'' + $tmp_alt + '\')" href="#" >'+ $tmp_alt +'</a></li>';
+
+// $("#answer_inp").val('+$tmp_alt +');
+  
+});
+
+  div_selected_tmp.html($html);
+}
     </script>
   {% endblock %}
 

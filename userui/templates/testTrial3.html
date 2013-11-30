@@ -15,16 +15,16 @@
                     </div>
                     <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
                     <button type="submit" class="btn btn-success">Confirm</button>
-                    <div class="btn-group">
-                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-                        Selected Items <span id="count_selected"></span>
-                        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" >
-                        <li role="presentation" class="disabled" id="div_selected">
-                        </li>
-                      </ul>
-                    </div>
+
+                      <div class="dropdown btn-group">
+                        <button href="#" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Selected Items<span id="count_selected"></span>
+                          <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+                        </button>
+                        <ul role="presentation" class="dropdown-menu" id="div_selected">
+                        <li class="divider"></li>
+                        </ul>
+                      </div>
+                    
                   </form>
                 </ul>
 
@@ -39,10 +39,6 @@
     <div> </div>  
   </div> -->
   <style type="text/css">
-
-    .col-md-2{
-      background-color: gray
-      }
       .zoomContainer{
         z-index: -1;
         }</style>
@@ -123,7 +119,8 @@ Top</a>
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
 <script src="{% static "js/jquery.maphilight.min.js" %}"></script>
 
-    <script>$(function() {
+    <script>
+    $(function() {
 
 
       var area_tmp =  $('#map2_div area');
