@@ -84,6 +84,7 @@ class Results (models.Model):
     blockID = models.IntegerField(default = 0)
     trialID = models.IntegerField(default = 0)
     userAnswer = models.CharField(max_length = 30)
+    time = models.DecimalField(default = 0,max_digits=10, decimal_places=3)
 
     class Meta:
         unique_together = ("uID","blockID","trialID")
