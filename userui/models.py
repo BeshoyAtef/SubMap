@@ -101,4 +101,24 @@ class Colortest (models.Model):
     answer_5 = models.IntegerField(default = 0)
     answer_6 = models.IntegerField(default = 0)
 
+class Sequence (models.Model):
+    Rid = models.ForeignKey("Results")
+    alt_1 = models.CharField(max_length = 40)
+    alt_2 = models.CharField(max_length = 40)
+    alt_3 = models.CharField(max_length = 40)
+    alt_4 = models.CharField(max_length = 40)
+    alt_5 = models.CharField(max_length = 40)
+    alt_6 = models.CharField(max_length = 40)
+    alt_7 = models.CharField(max_length = 40)
+    alt_8 = models.CharField(max_length = 40)
+    alt_9 = models.CharField(max_length = 40)
+    alt_10 = models.CharField(max_length = 40)
+    alt_11 = models.CharField(max_length = 40)
+    alt_12 = models.CharField(max_length = 40)
+    alt_13 = models.CharField(max_length = 40)
+    alt_14 = models.CharField(max_length = 40)
+    alt_15 = models.CharField(max_length = 40)
+    alt_16 = models.CharField(max_length = 40)
+    alt_17 = models.CharField(max_length = 40)
+
 

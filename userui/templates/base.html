@@ -31,7 +31,7 @@
     {% block nav_center %}
     {% endblock %}
 <ul class="nav navbar-nav navbar-right">
-  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
+  <form class="navbar-form navbar-left rec" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
     {% csrf_token %}
 
     {% block nav_form %}

@@ -102,21 +102,25 @@ opacity: 0.4;" id="demo-container">
 
   }
 
-function checkclicked(){
+ffunction checkclicked(){
   var div_selected_tmp = $("#div_selected");
- div_selected_tmp.html("");
-
-  var $html =""
+  var form_tmp = $("#rec");
+  div_selected_tmp.html("");
+  var $html ="";
+  var $html2 ="";
+  var $i = 1;
   var $clicked_items=$( ".clicked" );
   $clicked_items.each(function() {
   $("#count_selected").html("("+$clicked_items.length+")")
   var $tmp_alt = $(this).attr("alt");
   $html = $html+'<li role="presentation"><a role="menuitem" class="selected_itms" value=0 tabindex="1"  onClick="changeval(\'' + $tmp_alt + '\')" href="#" >'+ $tmp_alt +'</a></li>';
+  $html2 = $html2+'<input type="text" id= "name+i" value="\'' + $tmp_alt + '\'" class="form-control" style="display:none" >';
 
 // $("#answer_inp").val('+$tmp_alt +');
   
 });
-
+  i++;
+  form_tmp.html($html2);
   div_selected_tmp.html($html);
 }
     </script>
