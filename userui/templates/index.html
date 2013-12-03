@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block manin_nav %}
 {% block nav_form %}
                 <ul class="nav navbar-nav navbar-right">
                   <form class="navbar-form navbar-left" >
@@ -9,9 +10,11 @@
                 </ul>
 
 {% endblock %}
+{% endblock %}
 {% block body_tag %}
 <body>
  {% endblock %} 
+ 
 {% block content%}
    <center>
      <div> 

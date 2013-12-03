@@ -25,8 +25,34 @@
                   <a class="navbar-brand" href="/">Map experiment</a>
 
                 </div>
-{% block nav_form %}
+               
 
+{% block manin_nav %}
+    {% block nav_center %}
+    {% endblock %}
+<ul class="nav navbar-nav navbar-right">
+  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
+    {% csrf_token %}
+
+    {% block nav_form %}
+    {% endblock %}
+    {% block selected %}
+    <div class="form-group">
+      <input type="text" id="answer_inp" class="form-control" style="width: 300px;text-align: center;" value="" name="answer" placeholder="Answer">
+    </div>
+    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
+    <button type="submit" class="btn btn-success">Confirm</button>
+    <div class="dropdown btn-group">
+      <button href="#" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Selected Items<span id="count_selected"></span>
+        <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
+      </button>
+      <ul role="presentation" class="dropdown-menu" id="div_selected">
+        <li class="divider"></li>
+      </ul>
+    </div>
+    {% endblock %}
+  </form>
+</ul>
 {% endblock %}
 
 
@@ -45,7 +71,20 @@
 
 <!-- USe this to add your stuff   -->
 {% endblock %}
-
+{% block demo_container %} 
+<div id="demo-container" style=
+"position: fixed; left: 0; bottom: 0; height: 200px; width: 400px; opacity: 0.4;">
+<div style="opacity:1;color: black;"></div>
+</div>
+<div id="demo-container2" style=
+"position: fixed; left: 0; bottom: 0; height: 200px; width: 400px; opacity: 0.4;">
+<div style="opacity:1;color: black;"></div>
+</div>
+  <style type="text/css">
+      .zoomContainer{
+        z-index: -1;
+        }</style>
+{% endblock %}
         
 <!-- End TMP , Please remove me -->
       <hr>
@@ -118,8 +157,78 @@ function resettimer() {
 </script>
 
   {% block js %}
-  
+
   {% endblock %}
+    {% block zoom %}
+    <script type="text/javascript">
+       $("#zoom_01").elevateZoom({
+           zoomWindowPosition: "demo-container", 
+           zoomWindowWidth:500,
+           zoomWindowHeight:300,
+           scrollZoom : true,
+           
+     });    
+    $("#zoom_02").elevateZoom({
+          zoomWindowPosition: "demo-container", 
+          zoomWindowWidth:500,
+          zoomWindowHeight:300,
+          scrollZoom : true,
+    });
+    </script> 
+  {% endblock %}
+
+
+{% block scroll %}
+<a href="#" class="scroll scrollup  btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>
+Top</a>
+<a href="#" class="scroll scrolldown btn btn-success" style="left:600px;"><span class="glyphicon glyphicon-chevron-down"></span>
+Buttom</a>
+<style type="text/css">
+
+  .scroll{
+   
+    position:fixed;
+    bottom:-11px;
+    left:520px;
+    display:none;
+    color: white;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){ 
+
+ 
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 80) {
+                $('.scroll').fadeIn();
+
+            } else {
+                $('.scroll').fadeOut();
+            }
+        }); 
+ 
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+        $('.scrolldown').click(function(){
+            $("html, body").animate({ scrollTop: $(document).height() }, 600);
+            return false;
+        });
+ 
+    });
+</script>
+{% endblock %}
+
+{% block maplight %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+    $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
+    $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});
+    starttimer();
+    });
+</script>
+{% endblock %}
 
 </body>
 </html>
