@@ -55,7 +55,8 @@ def submit_colortest(request):
 
 
 def submitter(request,user,block,trial):
-    flag=saver(request,user,block,trial)
+    if request.method == 'POST':
+        flag=saver(request,user,block,trial)
     user = UserProfile.objects.get(pk=user)
     available_trails = user.getUserTrials()
     next_trial=available_trails[0]   
@@ -70,14 +71,7 @@ def test(request):
     pnum = request.GET['participant_num']
     current_participant = UserProfile.objects.get(id=pnum)
     participants_blocks = current_participant.getUserBlocks()
-    next_trial=renderer(request,pnum)
-    d = {'participants_blocks': participants_blocks}
-    if next_trial["trial"].technique == 1:
-        return render(request,'testTrial.html',next_trial)
-    elif next_trial["trial"].technique == 2:
-        return render(request,'testTrial2.html',next_trial)
-    else :
-        return render(request,'testTrial3.html',next_trial)
+    return submitter(request,pnum,participants_blocks[0],1)
 
 def saver(request,user,block,trial):
     user = UserProfile.objects.get(pk=user)
