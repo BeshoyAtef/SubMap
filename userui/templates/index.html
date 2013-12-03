@@ -13,11 +13,22 @@
 {% endblock %}
 {% block body_tag %}
 <body>
- {% endblock %} 
+ {% endblock %}
+
+
  
 {% block content%}
    <center>
      <div> 
+       {% if Pass %}
+ <div class="alert alert-success fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4>Passed</h4>
+        <p>You have succesfully passed the test and can now start our trip to explore manhattan </p>
+        <p>
+        </p>
+</div>
+{% endif %} 
     <h1 class = "text-muted" style = "text-align: center;"> Greetings participant<h1>
     <h5><form form action="/u/" method="GET" id="form">
             <div class="control-group" style="float: inline">

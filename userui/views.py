@@ -41,9 +41,11 @@ def submit_colortest(request):
         answer_5 = request.POST["5"],
         answer_6 = request.POST["6"])
     x.save()
-    if x.answer_1 == 2 and x.answer_2 == 10 and x.answer_3 == 16 and x.answer_4 == 19 and x.answer_5 == 5 and x.answer_6 == 7:
+    if x.answer_1 == 2 and x.answer_2 == 10 and x.answer_3 == 16 and x.answer_4 == 29 and x.answer_5 == 5 and x.answer_6 == 7:
+        print "Passed"
         return render(request,'index.html',{'Pass': True})
     else:
+        print "Failed"
         return render(request,'index.html',{'Pass': False})
 
 def renderer(request,user,block):
