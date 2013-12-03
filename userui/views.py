@@ -88,6 +88,7 @@ def saver(request,user,block,trial):
     user = UserProfile.objects.get(pk=user)
     answer = request.POST['answer']
     timer = request.POST['d2']
+    
     result = Results(uID=user,blockID=block,trialID=trial,userAnswer=answer, time = d2)
     result.save()
     return True
