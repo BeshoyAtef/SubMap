@@ -82,8 +82,8 @@ class Trial(models.Model):
     task = models.IntegerField(default=0)
 
     def __unicode__(self):
-        # return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
-        return "Trial_TEXT:%s," % (self.task_text)
+        return "Trial_id:%s,BlK_id:%s,Order:%s,Task:%s,Techni:%s" % (self.id,self.blockId,self.order,self.task,self.technique)
+        # return "Trial_TEXT:%s," % (self.task_text)
     class Meta:
         unique_together = ("trialNumber","blockId","order")
 
