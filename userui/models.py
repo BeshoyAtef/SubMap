@@ -36,20 +36,25 @@ class UserProfile(models.Model):
                 print "execlude"
             else:
                 sequence = b
-                block_order.append(sequence)
+                block_order.append(sequence.id)
         return block_order
 
 
     def getUserTrials(self):
         block = self.getUserBlocks()
         print block
-        print "hello"
-        orderedQuestions = []
-        for b in block :
-            trials = Trial.objects.filter(blockId = b.number).order_by('order')
-            for trial in trials:
-                orderedQuestions.append(trial)
-        return orderedQuestions
+        print block
+        available_trails = Trial.objects.filter(blockId__in=block).order_by('order')
+        print available_trails
+        answered_trials = (Results.objects.filter(uID=self,blockID__in=block).values_list('trialID', flat=True))
+        print answered_trials
+        if answered_trials :
+            available_trails = answered_trials.exclude(trialNumber__in=answered_trials).order_by('order')
+            print available_trails
+        else:
+            available_trails = Trial.objects.filter(blockId__in=block).order_by('order')
+            print available_trails
+        return available_trails
 
 
 
