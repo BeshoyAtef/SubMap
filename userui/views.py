@@ -33,7 +33,7 @@ def colortest_view(request):
 
 def submit_colortest(request):
     x= Colortest(
-        uID = UserProfile.objects.get(pk=request.POST["UID"]),
+        uID = UserProfile.objects.get(pk=request.POST["participant_num"]),
         answer_1 = request.POST["1"],
         answer_2 = request.POST["2"],
         answer_3 = request.POST["3"],
@@ -49,29 +49,24 @@ def submit_colortest(request):
 def renderer(request,user,block):
     print user
     print block
-    user = UserProfile.objects.get(pk=user)    
+    user = UserProfile.objects.get(pk=user)   
+    block=user.getUserBlocks()[0].id
     answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
-    print answered_trials
     if answered_trials :
         available_trails = Trial.objects.filter(blockId=block).exclude(trialNumber__in=answered_trials).order_by('order')
     else:
         available_trails = Trial.objects.filter(blockId=block).order_by('order')
-        print available_trails
-        print available_trails[0]
-    return {'u':user.id,'trial': available_trails[0]}
+    if available_trails:
+        return {'u':user.id,'trial': available_trails[0]}
+    else :
+        render(request,'index.html',{'Pass': True})
+
 
 def submitter(request,user,block,trial):
     flag=saver(request,user,block,trial)
     user = UserProfile.objects.get(pk=user)
-    answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
-    print answered_trials
-    if answered_trials :
-        available_trails = Trial.objects.filter(blockId=block).exclude(trialNumber__in=answered_trials).order_by('order')
-        print available_trails
-    else:
-        available_trails = Trial.objects.filter(blockId=block).order_by('order')
-        print available_trails
-    next_trial=available_trails[0]    
+    # place for old stuff
+    next_trial=renderer(request,user,block)['trial']   
     if next_trial.technique == 1:
         return render(request,'testTrial.html',{'u':user.id,'trial': next_trial})
     elif next_trial.technique == 2:
@@ -79,7 +74,14 @@ def submitter(request,user,block,trial):
     else :
         return render(request,'testTrial3.html',{'u':user.id,'trial': next_trial})
 
-
+    # answered_trials = (Results.objects.filter(uID=user,blockID=block).values_list('trialID', flat=True))
+    # print str(len(answered_trials))+":"+str(len(Trial.objects.filter(blockId=block)))
+    # print answered_trials
+    # if answered_trials :
+    #     available_trails = Trial.objects.filter(blockId=block).exclude(trialNumber__in=answered_trials).order_by('order')
+    #     print available_trails
+    # else:
+    #     available_trails = Trial.objects.filter(blockId=block).order_by('order')
 
 
 def saver(request,user,block,trial):

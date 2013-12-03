@@ -23,12 +23,18 @@
               </div>
             </div>
 	  {% csrf_token %}
+	<div class="control-group" id="0" style="float: inline">
+    <label>Please add your number</label>
+    <div class="controls">
+        <input type="text"class="form-control" style="width: 225px" name="participant_num" id="inputPart" placeholder="Partcipant number" autofocus =""/>
+    </div>
+    </div>
 <div id="1">
 	<img src='{% static "img/no2.jpg" %}' >
 	<div class="form-group" style="margin:15px">
 	  <input type="text" class="form-control" name="1" placeholder="Answer">
 	</div>
-	<a class="btn btn-success" onclick="$('#1').hide();$('#2').fadeIn();">Confirm</a>
+	<a class="btn btn-success" onclick="$('#0').hide();$('#1').hide();$('#2').fadeIn();">Confirm</a>
 </div>
 <div id="2" style="display:none" >
 	<img src='{% static "img/no10.jpg" %}' >

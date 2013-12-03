@@ -31,9 +31,12 @@ class UserProfile(models.Model):
         block_seq = UserBlocks.objects.filter(user_id = self.id)
         block_order = []
         for b in block_seq:
-            sequence = b
-            block_order.append(sequence)
-
+            answered_trials = (Results.objects.filter(uID=self,blockID=b.number).values_list('trialID', flat=True))
+            if len(answered_trials) == len(Trial.objects.filter(blockId=b.number)):
+                print "execlude"
+            else:
+                sequence = b
+                block_order.append(sequence)
         return block_order
 
 
