@@ -2,32 +2,11 @@
 {% load staticfiles %}
 
 {% block nav_form %}
-                <ul class="nav navbar-nav navbar-right">
-                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
-                    {% csrf_token %}
                     {% if trial.task == 1 %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please find the route with the minimum number of stations starting from {{trial.pointA}} reaching {{trial.pointB}}. <br> Kindly submit the number of stations you found and mark them on the map." role="button" data-original-title="A Title">Instructions</a>
+                    <a id="example" nohref="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please find the route with the minimum number of stations starting from {{trial.pointA}} reaching {{trial.pointB}}. <br> Kindly submit the number of stations you found and mark them on the map." role="button" data-original-title="A Title">Instructions</a>
                     {% elif trial == 2 %}
                     <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please pinpoint the nearest station to {{trial.pointA}}. <br> kindly, submit its name in the text field." role="button" data-original-title="A Title">Instructions</a>
                     {% endif %}
-                    <div class="form-group">
-                      <input type="text" id="answer_inp" class="form-control" style="width: 300px;text-align: center;" value="" name="answer" placeholder="Answer">
-                    </div>
-                    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
-                    <button type="submit" class="btn btn-success">Confirm</button>
-
-                      <div class="dropdown btn-group">
-                        <button href="#" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Selected Items<span id="count_selected"></span>
-                          <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
-                        </button>
-                        <ul role="presentation" class="dropdown-menu" >
-                          <div id="div_selected"></div>
-                        <li class="divider"></li>
-                        </ul>
-                      </div>
-
-                  </form>
-                </ul>
 
 {% endblock %}
 
@@ -54,7 +33,7 @@
       </div>
     <a class="">
         <div>
-          <div style="margin-left: 00px">
+          <div style="margin-left: 50px">
           <img id="zoom_01" src='{% static "img/manMetroMap.png" %}' data-zoom-image='{% static "img/manMetroMap.png" %}'  width="800"   border="0" usemap="#map">
           </div>
           <div style="">
@@ -74,8 +53,8 @@
 position: fixed;
 left: 0;
 bottom: 0;
-height: 250px;
-width: 450px;
+height: 300px;
+width: 500px;
 opacity: 0.4;" id="demo-container">
 <div style="opacity:1;color: black;">
 </div>
@@ -83,42 +62,11 @@ opacity: 0.4;" id="demo-container">
 
 
 
-<a href="#" class="scrollup btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>
-Top</a>
-<style type="text/css">
-
-  .scrollup{
-   
-    position:fixed;
-    bottom:30px;
-    left:600px;
-    display:none;
-    color: white;
-}
-</style>
 
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript">
-    $(document).ready(function(){ 
 
- 
-        $(window).scroll(function(){
-            if ($(this).scrollTop() > 100) {
-                $('.scrollup').fadeIn();
-            } else {
-                $('.scrollup').fadeOut();
-            }
-        }); 
- 
-        $('.scrollup').click(function(){
-            $("html, body").animate({ scrollTop: 0 }, 600);
-            return false;
-        });
- 
-    });
-</script>
 
 
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
@@ -246,21 +194,7 @@ function checkclicked(){
         //   $('#y').val(tempY)
         //   return true
         // }
-        
-     $("#zoom_01").elevateZoom({
-           zoomWindowPosition: "demo-container", 
-           zoomWindowWidth:450,
-           zoomWindowHeight:250,
-           scrollZoom : true,
-           
-     });    
-    $("#zoom_02").elevateZoom({
-          zoomWindowPosition: "demo-container", 
-          zoomWindowWidth:450,
-          zoomWindowHeight:250,
-          scrollZoom : true,
-          
-    }); 
+
 
 </script>
 {% endblock %}

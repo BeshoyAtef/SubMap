@@ -2,31 +2,11 @@
 {% load staticfiles %}
 
 {% block nav_form %}
-                <ul class="nav navbar-nav navbar-right">
-                  <form class="navbar-form navbar-left" action="/submit/{{u}}/{{trial.blockId}}/{{trial.trialNumber}}/" method="POST">
-                    {% csrf_token %}
                     {% if trial.task == 1 %}
-                    <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please find the route with the minimum number of stations starting from {{trial.pointA}} reaching {{trial.pointB}}. <br> Kindly submit the number of stations you found and mark them on the map." role="button" data-original-title="A Title">Instructions</a>
+                    <a id="example" nohref="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please find the route with the minimum number of stations starting from {{trial.pointA}} reaching {{trial.pointB}}. <br> Kindly submit the number of stations you found and mark them on the map." role="button" data-original-title="A Title">Instructions</a>
                     {% elif trial == 2 %}
                     <a id="example" href="#" class="btn btn-success" data-toggle="popover" title="Test T-{{trial.trialNumber}}" data-placement="bottom" data-content="Please pinpoint the nearest station to {{trial.pointA}}. <br> kindly, submit its name in the text field." role="button" data-original-title="A Title">Instructions</a>
                     {% endif %}
-                    <div class="form-group">
-                      <input type="text" id="answer_inp" class="form-control" style="width: 300px;text-align: center;" value="" name="answer" placeholder="Answer">
-                    </div>
-                    <input type="text" name="d2" id= "timer" value="0" class="form-control" style="display:none" >
-                    <button type="submit" class="btn btn-success">Confirm</button>
-
-                      <div class="dropdown btn-group">
-                        <button href="#" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Selected Items<span id="count_selected"></span>
-                          <span style="border-top-color: #FFFFFF;border-bottom-color: #FFFFFF;" class="caret"></span>
-                        </button>
-                        <ul role="presentation" class="dropdown-menu" id="div_selected">
-                        <li class="divider"></li>
-                        </ul>
-                      </div>
-                    
-                  </form>
-                </ul>
 
 {% endblock %}
 
@@ -78,42 +58,12 @@ opacity: 0.4;" id="demo-container">
 
 
 
-<a href="#" class="scrollup btn btn-success"><span class="glyphicon glyphicon-chevron-up"></span>
-Top</a>
-<style type="text/css">
 
-  .scrollup{
-   
-    position:fixed;
-    bottom:30px;
-    left:600px;
-    display:none;
-    color: white;
-}
-</style>
 
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript">
-    $(document).ready(function(){ 
 
- 
-        $(window).scroll(function(){
-            if ($(this).scrollTop() > 100) {
-                $('.scrollup').fadeIn();
-            } else {
-                $('.scrollup').fadeOut();
-            }
-        }); 
- 
-        $('.scrollup').click(function(){
-            $("html, body").animate({ scrollTop: 0 }, 600);
-            return false;
-        });
- 
-    });
-</script>
 
 
 <script src="{% static "js/jquery.elevatezoom.js" %}"></script>
@@ -173,12 +123,9 @@ function checkclicked(){
 
 
 
-   $('#zoom_01').maphilight({"strokeColor":"0000ff" ,"strokeWidth":3,"fillColor":"ff0000","fillOpacity":0.3});
-   $('#zoom_02').maphilight({"strokeColor":"0000ff" ,"strokeWidth":1,"fillColor":"ff0000","fillOpacity":0.3});;
 
-        $( document ).ready(function() {
-        starttimer();
-    });
+
+
         // var coords = [];
         // [].forEach.call(document.querySelectorAll("area"), function (value, index, array) {
         //     coords.push(value.getAttribute("coords").split(","));
@@ -242,20 +189,7 @@ function checkclicked(){
         //   $('#y').val(tempY)
         //   return true
         // }
-     $("#zoom_01").elevateZoom({
-           zoomWindowPosition: "demo-container", 
-           zoomWindowWidth:400,
-           zoomWindowHeight:200,
-           scrollZoom : true,
-           
-     });    
-    $("#zoom_02").elevateZoom({
-          zoomWindowPosition: "demo-container", 
-          zoomWindowWidth:400,
-          zoomWindowHeight:200,
-          scrollZoom : true,
-          
-    }); 
+
 
 </script>
 {% endblock %}
