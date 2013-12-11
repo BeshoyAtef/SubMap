@@ -18,7 +18,7 @@ def test(request):
     blockCounter = 0
     current_participant = UserProfile.objects.get(id=pnum)
     participants_blocks = current_participant.getUserBlocks()
-    if(trialcounter == 30 || trialcounter == 60):
+    if(trialcounter == 30 or trialcounter == 60):
         blockCounter += 1
     next_trial=renderer(request,pnum,participants_blocks[blockCounter].number)
     d = {'participants_blocks': participants_blocks}
