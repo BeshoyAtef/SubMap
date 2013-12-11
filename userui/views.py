@@ -14,7 +14,7 @@ def test2(request):
 
 def test(request):
     pnum = request.GET['participant_num']
-    trialcounter = 0
+    trialcounter = 1
     blockCounter = 0
     current_participant = UserProfile.objects.get(id=pnum)
     participants_blocks = current_participant.getUserBlocks()
