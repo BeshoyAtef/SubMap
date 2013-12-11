@@ -14,15 +14,22 @@ def test2(request):
 
 def test(request):
     pnum = request.GET['participant_num']
+    trialcounter = 0
+    blockCounter = 0
     current_participant = UserProfile.objects.get(id=pnum)
     participants_blocks = current_participant.getUserBlocks()
-    next_trial=renderer(request,pnum,participants_blocks[0].number)
+    if(trialcounter == 30 || trialcounter == 60):
+        blockCounter += 1
+    next_trial=renderer(request,pnum,participants_blocks[blockCounter].number)
     d = {'participants_blocks': participants_blocks}
     if next_trial["trial"].technique == 1:
+        trialCounter += 1
         return render(request,'testTrial.html',next_trial)
     elif next_trial["trial"].technique == 2:
+        trialCounter += 1
         return render(request,'testTrial2.html',next_trial)
     else :
+        trialCounter += 1
         return render(request,'testTrial3.html',next_trial)
 
 def index(request):
