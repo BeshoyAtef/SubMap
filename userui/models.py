@@ -31,22 +31,30 @@ class UserProfile(models.Model):
         block_seq = UserBlocks.objects.filter(user_id = self.id)
         block_order = []
         for b in block_seq:
-            sequence = b
-            block_order.append(sequence)
-
+            answered_trials = (Results.objects.filter(uID=self,blockID=b.number).values_list('trialID', flat=True))
+            if len(answered_trials) == len(Trial.objects.filter(blockId=b.number)):
+                print "execlude"
+            else:
+                sequence = b
+                block_order.append(sequence.id)
         return block_order
 
 
     def getUserTrials(self):
-        block = self.getUserBlocks()
-        print block
-        print "hello"
-        orderedQuestions = []
-        for b in block :
-            trials = Trial.objects.filter(blockId = b.number).order_by('order')
-            for trial in trials:
-                orderedQuestions.append(trial)
-        return orderedQuestions
+        block = self.getUserBlocks()[0]
+        print "userBlocks:"+str(block)
+
+        available_trails = Trial.objects.filter(blockId=block).order_by('order')
+        print "available_trails:"+ str(available_trails)
+        answered_trials = Results.objects.filter(uID=self,blockID=block).values_list('trialID', flat=True)
+        print "answered_trials:"+str(answered_trials)
+        if answered_trials :
+            available_trails = available_trails.exclude(trialNumber__in=answered_trials).order_by('order')
+            print "All less answered_trials:"+str(available_trails)
+        else:
+            available_trails = Trial.objects.filter(blockId=block).order_by('order')
+            print "All less answered_trials:"+str(available_trails)
+        return available_trails
 
 
 
@@ -74,8 +82,8 @@ class Trial(models.Model):
     task = models.IntegerField(default=0)
 
     def __unicode__(self):
-        # return "Trial_id:%s,Point (%s,%s),BlK_id:%s,Order:%s " % (self.id,self.pointA,self.pointB, self.blockId,self.order)
-        return "Trial_TEXT:%s," % (self.task_text)
+        return "Trial_id:%s,BlK_id:%s,Order:%s,Task:%s,Techni:%s" % (self.id,self.blockId,self.order,self.task,self.technique)
+        # return "Trial_TEXT:%s," % (self.task_text)
     class Meta:
         unique_together = ("trialNumber","blockId","order")
 
@@ -85,9 +93,13 @@ class Results (models.Model):
     trialID = models.IntegerField(default = 0)
     userAnswer = models.CharField(max_length = 30)
     time = models.DecimalField(default = 0,max_digits=10, decimal_places=3)
-
+    alts = models.CharField(max_length = 1500,default="")
     class Meta:
         unique_together = ("uID","blockID","trialID")
+
+    def __unicode__(self):
+        return "uID:%s,BlK_id:%s,TrilID:%s,Ans:%s" % (self.uID,self.blockID,self.trialID,self.userAnswer)
+        # return "Trial_TEXT:%s," % (self.task_text)
 
 class Colortest (models.Model):
     uID = models.ForeignKey('UserProfile')
@@ -97,5 +109,7 @@ class Colortest (models.Model):
     answer_4 = models.IntegerField(default = 0)
     answer_5 = models.IntegerField(default = 0)
     answer_6 = models.IntegerField(default = 0)
+
+
 
 
